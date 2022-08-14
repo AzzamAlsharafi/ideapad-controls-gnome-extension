@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+    <schema id="org.gnome.shell.extensions.ideapad-controls" path="/org/gnome/shell/extensions/ideapad-controls/">
+        <key type="b" name="conservation-mode-option">
+            <default>true</default>
+        </key>
+        
+        <key type="b" name="camera-option">
+            <default>true</default>
+        </key>
+
+        <key type="b" name="fn-lock-option">
+            <default>true</default>
+        </key>
+
+        <key type="b" name="touchpad-option">
+            <default>true</default>
+        </key>
+
+        <key type="b" name="usb-charging-option">
+            <default>true</default>
+        </key>
+
+        <!-- TODO -->
+
+        <!-- <key type="i" name="fan-mode-option">
+            <default>true</default>
+        </key> -->
+
+        <!-- choose whether the extension menu should be in the tray or in the system menu.
+             System menu is the menu with volume, brightness, wifi, bluetooth, etc...
+             If true, place the extension in system menu, otherwise in place in the tray. -->
+        <!-- <key type="b" name="system-menu-location">
+            <default>true</default>
+        </key> -->
+
+        <!-- TODO -->
+    </schema>
+</schemalist>
