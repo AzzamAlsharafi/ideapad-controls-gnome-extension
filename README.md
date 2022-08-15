@@ -9,6 +9,4 @@ GNOME Shell extension for controling Lenovo IdeaPad laptops options.
 Install from [GNOME Extensions](https://extensions.gnome.org/extension/5260/ideapad-controls/).
 
 ## Manual
-Install by running: `gnome-extensions install ideapad-controls@azzamalsharafi.gmail.com.shell-extension.zip`
-
-The zip file can be found in Releases.
+Clone the repo then execute `install.sh` script.
