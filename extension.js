@@ -8,6 +8,8 @@ const PopupMenu = imports.ui.popupMenu;
 const GLib = imports.gi.GLib;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 
+const AggregateMenu = Main.panel.statusArea.aggregateMenu;
+
 const options = ["Conservation Mode", "Camera", "Fn Lock", "Touchpad", "USB Charging"];
 
 // List for files names of each options value,
@@ -17,23 +19,21 @@ const optionsFile = ["conservation_mode", "camera_power", "fn_lock", "touchpad",
 function getOptionValue(optionIndex) {
   const file = Gio.File.new_for_path("/sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/" + optionsFile[optionIndex]);
   const [, contents, etag] = file.load_contents(null);
-  
+
   const decoder = new TextDecoder('utf-8');
   const contentsString = decoder.decode(contents);
 
   return contentsString.trim();
 }
 
-function setOptionValue(optionIndex, value){
+function setOptionValue(optionIndex, value) {
   GLib.spawn_command_line_async('pkexec bash -c "echo ' + value + ' > /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/' + optionsFile[optionIndex] + '"');
 }
 
-const ControlMenu = GObject.registerClass(
-  class ControlMenu extends PanelMenu.Button {
+const TrayMenu = GObject.registerClass(
+  class TrayMenu extends PanelMenu.Button {
     _init() {
       super._init(0);
-
-      let settings = ExtensionUtils.getSettings('org.gnome.shell.extensions.ideapad-controls');
 
       // Tray icon
       let icon = new St.Icon({
@@ -43,40 +43,87 @@ const ControlMenu = GObject.registerClass(
 
       this.add_child(icon);
 
-      // Create a switch item for each option
-      for (let i = 0; i < options.length; i++) {
-        // Convert option title to schema key, i.e. "Camera Lock" becomes "camera-lock-option"
-        const optionKey = options[i].toLowerCase().replace(" ", "-") + "-option";
-
-        let optionSwitch = new PopupMenu.PopupSwitchMenuItem(options[i], getOptionValue(i) === "1");
-        this.menu.addMenuItem(optionSwitch);
-
-        settings.bind(
-          optionKey,
-          optionSwitch,
-          'visible',
-          Gio.SettingsBindFlags.DEFAULT
-        );
-
-        optionSwitch.connect('toggled', () => {
-          getOptionValue(i);
-          setOptionValue(i, optionSwitch.state ? 1 : 0)
-        });
-      }
+      addOptionsToMenu(this.menu);
     }
   }
 );
 
+const SystemMenu = GObject.registerClass(
+  class SystemMenu extends PanelMenu.SystemIndicator {
+
+    _init() {
+      super._init();
+
+      // Create extension's sub menu
+      this.subMenu = new PopupMenu.PopupSubMenuMenuItem(Me.metadata.name, true);
+      this.subMenu.icon.gicon = Gio.icon_new_for_string(Me.dir.get_path() + '/icons/controls-big-symbolic.svg');
+
+      // Places the extension's sub menu after the battery sub menu if it exists,
+      // otherwise places the extension's sub menu at the first spot. (Change later? First spot might be bad idea)
+      const menuItems = AggregateMenu.menu._getMenuItems();
+      const subMenuIndex = AggregateMenu._power ? (menuItems.indexOf(AggregateMenu._power.menu) + 1) : 0
+      AggregateMenu.menu.addMenuItem(this.subMenu, subMenuIndex);
+
+      addOptionsToMenu(this.subMenu.menu);
+    }
+
+    destroy(){
+      this.subMenu.destroy();
+      super.destroy();
+    }
+  }
+);
+
+function addOptionsToMenu(menu) {
+  let settings = ExtensionUtils.getSettings('org.gnome.shell.extensions.ideapad-controls');
+
+  // Create a switch item for each option
+  for (let i = 0; i < options.length; i++) {
+    // Convert option title to schema key, i.e. "Camera Lock" becomes "camera-lock-option"
+    const optionKey = options[i].toLowerCase().replace(" ", "-") + "-option";
+
+    let optionSwitch = new PopupMenu.PopupSwitchMenuItem(options[i], getOptionValue(i) === "1");
+    menu.addMenuItem(optionSwitch);
+
+    settings.bind(
+      optionKey,
+      optionSwitch,
+      'visible',
+      Gio.SettingsBindFlags.DEFAULT
+    );
+
+    optionSwitch.connect('toggled', () => {
+      getOptionValue(i);
+      setOptionValue(i, optionSwitch.state ? 1 : 0)
+    });
+  }
+}
+
+
 function init() { }
 
-let controlMenu;
+let trayMenu = null;
+let systemMenu = null;
 
 function enable() {
-  controlMenu = new ControlMenu();
-  Main.panel.addToStatusArea('ideapad-controlMenu', controlMenu, 1);
+  let settings = ExtensionUtils.getSettings('org.gnome.shell.extensions.ideapad-controls');
+
+  if (settings.get_boolean("tray-location")) {
+    trayMenu = new TrayMenu();
+    Main.panel.addToStatusArea('ideapad-controlMenu', trayMenu, 1);
+  } else {
+    systemMenu = new SystemMenu();
+  }
 }
 
 function disable() {
-  controlMenu.destroy();
-  controlMenu = null;
+  if (trayMenu != null) {
+    trayMenu.destroy();
+    trayMenu = null;
+  }
+
+  if (systemMenu != null) {
+    systemMenu.destroy();
+    systemMenu = null;
+  }
 }

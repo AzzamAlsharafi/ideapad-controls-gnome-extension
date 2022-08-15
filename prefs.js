@@ -14,8 +14,44 @@ function fillPreferencesWindow(window) {
         'org.gnome.shell.extensions.ideapad-controls');
 
     const page = new Adw.PreferencesPage();
-    const group = new Adw.PreferencesGroup();
-    page.add(group);
+
+    const extensionGroup = new Adw.PreferencesGroup({
+        title: "Extension menu",
+        description: "These settings require extension reload (disable then enable) to take effect."
+    });
+    page.add(extensionGroup);
+
+    const locationRow = new Adw.ActionRow({ title: "Extension menu location", subtitle: "Choose where to place the extension menu." });
+    extensionGroup.add(locationRow);
+
+    const trayToggle = new Gtk.ToggleButton({ label: "Tray", valign: Gtk.Align.CENTER });
+    const systemToggle = new Gtk.ToggleButton({ label: "System Menu", valign: Gtk.Align.CENTER });
+
+    trayToggle.set_group(systemToggle);
+
+    trayToggle.set_active(settings.get_boolean("tray-location"));
+    systemToggle.set_active(!settings.get_boolean("tray-location"));
+
+    settings.bind(
+        "tray-location",
+        trayToggle,
+        "active",
+        Gio.SettingsBindFlags.DEFAULT
+    )
+
+    const locationBox = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 5 });
+    locationBox.append(trayToggle);
+    locationBox.append(systemToggle);
+
+    locationRow.add_suffix(locationBox);
+
+
+
+    const optionsGroup = new Adw.PreferencesGroup({
+        title: "Options",
+        description: "Choose which options to keep in the extension menu."
+    });
+    page.add(optionsGroup);
 
     // Create a Switch for each option
     for (let i = 0; i < options.length; i++) {
@@ -23,7 +59,7 @@ function fillPreferencesWindow(window) {
         const optionKey = options[i].toLowerCase().replace(" ", "-") + "-option";
 
         const optionRow = new Adw.ActionRow({ title: options[i] + " Option" });
-        group.add(optionRow);
+        optionsGroup.add(optionRow);
 
         const optionSwitch = new Gtk.Switch({
             active: settings.get_boolean(optionKey),
@@ -39,7 +75,6 @@ function fillPreferencesWindow(window) {
 
         optionRow.add_suffix(optionSwitch);
         optionRow.activatable_widget = optionSwitch;
-
     }
 
     window.add(page);
