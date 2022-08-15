@@ -84,4 +84,5 @@ function disable() {
   log('DISABLE: ideapad-control')
 
   controlMenu.destroy();
+  controlMenu = null;
 }
