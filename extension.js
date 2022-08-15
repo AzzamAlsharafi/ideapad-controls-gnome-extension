@@ -20,7 +20,6 @@ function getOptionValue(optionIndex) {
   
   const decoder = new TextDecoder('utf-8');
   const contentsString = decoder.decode(contents);
-  log(contentsString.trim());
 
   return contentsString.trim();
 }
@@ -60,7 +59,6 @@ const ControlMenu = GObject.registerClass(
         );
 
         optionSwitch.connect('toggled', () => {
-          log(options[i] + ' toggled ' + optionSwitch.state);
           getOptionValue(i);
           setOptionValue(i, optionSwitch.state ? 1 : 0)
         });
@@ -74,15 +72,11 @@ function init() { }
 let controlMenu;
 
 function enable() {
-  log('ENABLE: ideapad-control')
-
   controlMenu = new ControlMenu();
   Main.panel.addToStatusArea('ideapad-controlMenu', controlMenu, 1);
 }
 
 function disable() {
-  log('DISABLE: ideapad-control')
-
   controlMenu.destroy();
   controlMenu = null;
 }
