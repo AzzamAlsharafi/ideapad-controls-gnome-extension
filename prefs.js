@@ -17,7 +17,6 @@ function fillPreferencesWindow(window) {
 
     const extensionGroup = new Adw.PreferencesGroup({
         title: "Extension menu",
-        description: "These settings require extension reload (disable then enable) to take effect."
     });
     page.add(extensionGroup);
 

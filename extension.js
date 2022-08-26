@@ -99,24 +99,46 @@ function addOptionsToMenu(menu) {
   }
 }
 
+function updateLocation(trayLocation){
+  if (trayLocation) {
+    if (systemMenu != null) {
+      systemMenu.destroy();
+      systemMenu = null;
+    }
+
+    trayMenu = new TrayMenu();
+    Main.panel.addToStatusArea('ideapad-controlMenu', trayMenu, 1);
+  } else {
+    if (trayMenu != null) {
+      trayMenu.destroy();
+      trayMenu = null;
+    }
+
+    systemMenu = new SystemMenu();
+  }
+}
 
 function init() { }
 
 let trayMenu = null;
 let systemMenu = null;
 
-function enable() {
-  let settings = ExtensionUtils.getSettings('org.gnome.shell.extensions.ideapad-controls');
+let settings = null;
+let trayListener = null;
 
-  if (settings.get_boolean("tray-location")) {
-    trayMenu = new TrayMenu();
-    Main.panel.addToStatusArea('ideapad-controlMenu', trayMenu, 1);
-  } else {
-    systemMenu = new SystemMenu();
-  }
+function enable() {
+  settings = ExtensionUtils.getSettings('org.gnome.shell.extensions.ideapad-controls');
+
+  updateLocation(settings.get_boolean("tray-location"));
+
+  settings.connect("changed::tray-location", () => {
+    updateLocation(settings.get_boolean("tray-location"));
+  })
 }
 
 function disable() {
+  settings.disconnect(trayListener);
+
   if (trayMenu != null) {
     trayMenu.destroy();
     trayMenu = null;
