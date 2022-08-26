@@ -67,7 +67,7 @@ const SystemMenu = GObject.registerClass(
       addOptionsToMenu(this.subMenu.menu);
     }
 
-    destroy(){
+    destroy() {
       this.subMenu.destroy();
       super.destroy();
     }
@@ -99,7 +99,7 @@ function addOptionsToMenu(menu) {
   }
 }
 
-function updateLocation(trayLocation){
+function updateLocation(trayLocation) {
   if (trayLocation) {
     if (systemMenu != null) {
       systemMenu.destroy();
@@ -131,13 +131,15 @@ function enable() {
 
   updateLocation(settings.get_boolean("tray-location"));
 
-  settings.connect("changed::tray-location", () => {
+  trayListener = settings.connect("changed::tray-location", () => {
     updateLocation(settings.get_boolean("tray-location"));
   })
 }
 
 function disable() {
-  settings.disconnect(trayListener);
+  if (trayListener != null) {
+    settings.disconnect(trayListener);
+  }
 
   if (trayMenu != null) {
     trayMenu.destroy();
