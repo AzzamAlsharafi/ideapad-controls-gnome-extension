@@ -139,6 +139,7 @@ function enable() {
 function disable() {
   if (trayListener != null) {
     settings.disconnect(trayListener);
+    trayListener = null;
   }
 
   if (trayMenu != null) {
