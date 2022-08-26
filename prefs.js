@@ -5,7 +5,7 @@ const { Adw, Gio, Gtk } = imports.gi;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 
-const options = ["Conservation Mode", "Camera", "Fn Lock", "Touchpad", "USB Charging"]
+const optionsUtils = Me.imports.optionsUtils;
 
 function init() { }
 
@@ -51,6 +51,8 @@ function fillPreferencesWindow(window) {
         description: "Choose which options to keep in the extension menu."
     });
     page.add(optionsGroup);
+
+    let options = optionsUtils.getOptions();
 
     // Create a Switch for each option
     for (let i = 0; i < options.length; i++) {

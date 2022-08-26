@@ -8,27 +8,9 @@ const PopupMenu = imports.ui.popupMenu;
 const GLib = imports.gi.GLib;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 
+const optionsUtils = Me.imports.optionsUtils;
+
 const AggregateMenu = Main.panel.statusArea.aggregateMenu;
-
-const options = ["Conservation Mode", "Camera", "Fn Lock", "Touchpad", "USB Charging"];
-
-// List for files names of each options value,
-// these files can be found in /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/
-const optionsFile = ["conservation_mode", "camera_power", "fn_lock", "touchpad", "usb_charging"];
-
-function getOptionValue(optionIndex) {
-  const file = Gio.File.new_for_path("/sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/" + optionsFile[optionIndex]);
-  const [, contents, etag] = file.load_contents(null);
-
-  const decoder = new TextDecoder('utf-8');
-  const contentsString = decoder.decode(contents);
-
-  return contentsString.trim();
-}
-
-function setOptionValue(optionIndex, value) {
-  GLib.spawn_command_line_async('pkexec bash -c "echo ' + value + ' > /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/' + optionsFile[optionIndex] + '"');
-}
 
 const TrayMenu = GObject.registerClass(
   class TrayMenu extends PanelMenu.Button {
@@ -77,12 +59,14 @@ const SystemMenu = GObject.registerClass(
 function addOptionsToMenu(menu) {
   let settings = ExtensionUtils.getSettings('org.gnome.shell.extensions.ideapad-controls');
 
+  let options = optionsUtils.getOptions();
+
   // Create a switch item for each option
   for (let i = 0; i < options.length; i++) {
     // Convert option title to schema key, i.e. "Camera Lock" becomes "camera-lock-option"
     const optionKey = options[i].toLowerCase().replace(" ", "-") + "-option";
 
-    let optionSwitch = new PopupMenu.PopupSwitchMenuItem(options[i], getOptionValue(i) === "1");
+    let optionSwitch = new PopupMenu.PopupSwitchMenuItem(options[i], optionsUtils.getOptionValue(i) === "1");
     menu.addMenuItem(optionSwitch);
 
     settings.bind(
@@ -93,8 +77,8 @@ function addOptionsToMenu(menu) {
     );
 
     optionSwitch.connect('toggled', () => {
-      getOptionValue(i);
-      setOptionValue(i, optionSwitch.state ? 1 : 0)
+      optionsUtils.getOptionValue(i);
+      optionsUtils.setOptionValue(i, optionSwitch.state ? 1 : 0)
     });
   }
 }
@@ -151,4 +135,6 @@ function disable() {
     systemMenu.destroy();
     systemMenu = null;
   }
+
+  optionsUtils.destroy();
 }
