@@ -118,6 +118,11 @@ function addOptionsToMenu(menu) {
       optionsUtils.setOptionValue(i, optionSwitch.state ? 1 : 0)
     });
   }
+
+  // TODO: add the setting to hide this button.
+  menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
+  menu.addAction('Extension Settings',
+        () => ExtensionUtils.openPrefs());
 }
 
 function updateLocation(trayLocation) {
@@ -140,7 +145,7 @@ function updateLocation(trayLocation) {
 }
 
 // Return appropriate system menu based on shell version.
-function getSystemMenu(){
+function getSystemMenu() {
   if (shellVersion < 43) {
     return new SystemMenu();
   } else {
