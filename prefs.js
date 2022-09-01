@@ -11,46 +11,21 @@ function init() { }
 
 function fillPreferencesWindow(window) {
     const settings = ExtensionUtils.getSettings(
-        'org.gnome.shell.extensions.ideapad-controls');
+                'org.gnome.shell.extensions.ideapad-controls');
 
-    const page = new Adw.PreferencesPage();
+    let builder = Gtk.Builder.new();
+    builder.add_from_file(Me.dir.get_path() + "/template.ui");
+    let page = builder.get_object('prefs_page');
 
-    const extensionGroup = new Adw.PreferencesGroup({
-        title: "Extension menu",
+    let locationComboBox = builder.get_object('location_combo');
+
+    locationComboBox.set_active_id(settings.get_boolean("tray-location") ? 'tray' : 'system_menu');
+
+    locationComboBox.connect("changed", () => {
+        settings.set_boolean("tray-location", locationComboBox.get_active_id() === "tray");
     });
-    page.add(extensionGroup);
 
-    const locationRow = new Adw.ActionRow({ title: "Extension menu location", subtitle: "Choose where to place the extension menu." });
-    extensionGroup.add(locationRow);
-
-    const trayToggle = new Gtk.ToggleButton({ label: "Tray", valign: Gtk.Align.CENTER });
-    const systemToggle = new Gtk.ToggleButton({ label: "System Menu", valign: Gtk.Align.CENTER });
-
-    trayToggle.set_group(systemToggle);
-
-    trayToggle.set_active(settings.get_boolean("tray-location"));
-    systemToggle.set_active(!settings.get_boolean("tray-location"));
-
-    settings.bind(
-        "tray-location",
-        trayToggle,
-        "active",
-        Gio.SettingsBindFlags.DEFAULT
-    )
-
-    const locationBox = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 5 });
-    locationBox.append(trayToggle);
-    locationBox.append(systemToggle);
-
-    locationRow.add_suffix(locationBox);
-
-
-
-    const optionsGroup = new Adw.PreferencesGroup({
-        title: "Options",
-        description: "Choose which options to keep in the extension menu."
-    });
-    page.add(optionsGroup);
+    let optionsGroup = builder.get_object('options_group');
 
     let options = optionsUtils.getOptions();
 
@@ -77,6 +52,5 @@ function fillPreferencesWindow(window) {
         optionRow.add_suffix(optionSwitch);
         optionRow.activatable_widget = optionSwitch;
     }
-
     window.add(page);
 }
