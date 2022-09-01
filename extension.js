@@ -5,12 +5,21 @@ const GObject = imports.gi.GObject;
 const Gio = imports.gi.Gio;
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
+const UIQuickSettings = imports.ui.quickSettings;
 const GLib = imports.gi.GLib;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 
+const Config = imports.misc.config;
+const [major] = Config.PACKAGE_VERSION.split('.');
+const shellVersion = Number.parseInt(major);
+
 const optionsUtils = Me.imports.optionsUtils;
 
+// AggregateMenu for GNOME 42, QuickSettings for GNOME 43.
 const AggregateMenu = Main.panel.statusArea.aggregateMenu;
+const QuickSettingsMenu = Main.panel.statusArea.quickSettings;
+
+const extensionIcon = Gio.icon_new_for_string(Me.dir.get_path() + '/icons/controls-big-symbolic.svg');
 
 const TrayMenu = GObject.registerClass(
   class TrayMenu extends PanelMenu.Button {
@@ -19,7 +28,7 @@ const TrayMenu = GObject.registerClass(
 
       // Tray icon
       let icon = new St.Icon({
-        gicon: Gio.icon_new_for_string(Me.dir.get_path() + '/icons/controls-big-symbolic.svg'),
+        gicon: extensionIcon,
         style_class: 'system-status-icon',
       });
 
@@ -30,6 +39,10 @@ const TrayMenu = GObject.registerClass(
   }
 );
 
+// There are two classes for system menu because GNOME 42 and 43 
+// use different ways to interact with the system menu.
+// GNOME 42 uses AggregateMenu (SystemMenu),
+// and GNOME 43 uses QuickSettings (QSystemMenu).
 const SystemMenu = GObject.registerClass(
   class SystemMenu extends PanelMenu.SystemIndicator {
 
@@ -38,7 +51,7 @@ const SystemMenu = GObject.registerClass(
 
       // Create extension's sub menu
       this.subMenu = new PopupMenu.PopupSubMenuMenuItem(Me.metadata.name, true);
-      this.subMenu.icon.gicon = Gio.icon_new_for_string(Me.dir.get_path() + '/icons/controls-big-symbolic.svg');
+      this.subMenu.icon.gicon = extensionIcon;
 
       // Places the extension's sub menu after the battery sub menu if it exists,
       // otherwise places the extension's sub menu at the first spot. (Change later? First spot might be bad idea)
@@ -51,6 +64,30 @@ const SystemMenu = GObject.registerClass(
 
     destroy() {
       this.subMenu.destroy();
+      super.destroy();
+    }
+  }
+);
+
+const QSystemMenu = GObject.registerClass(
+  class QSystemMenu extends UIQuickSettings.SystemIndicator {
+
+    _init() {
+      super._init();
+
+      // Create extension's sub menu
+      this.toggleMenu = new UIQuickSettings.QuickMenuToggle({label: "IdeaPad", 
+        gicon: extensionIcon});
+
+      this.toggleMenu.menu.setHeader(extensionIcon, Me.metadata.name);
+      
+      QuickSettingsMenu.menu.addItem(this.toggleMenu);
+
+      addOptionsToMenu(this.toggleMenu.menu);
+    }
+
+    destroy() {
+      this.toggleMenu.destroy();
       super.destroy();
     }
   }
@@ -98,7 +135,16 @@ function updateLocation(trayLocation) {
       trayMenu = null;
     }
 
-    systemMenu = new SystemMenu();
+    systemMenu = getSystemMenu();
+  }
+}
+
+// Return appropriate system menu based on shell version.
+function getSystemMenu(){
+  if (shellVersion < 43) {
+    return new SystemMenu();
+  } else {
+    return new QSystemMenu();
   }
 }
 
