@@ -119,10 +119,20 @@ function addOptionsToMenu(menu) {
     });
   }
 
-  // TODO: add the setting to hide this button.
+  // Setting button
   menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-  menu.addAction('Extension Settings',
-        () => ExtensionUtils.openPrefs());
+
+  let settingsButton = new PopupMenu.PopupMenuItem("Extension Settings");
+  
+  settingsButton.connect("activate", () => ExtensionUtils.openPrefs());
+
+  menu.addMenuItem(settingsButton);
+
+  settings.bind(
+    "settings-button",
+    settingsButton,
+    "visible",
+    Gio.SettingsBindFlags.DEFAULT);
 }
 
 function updateLocation(trayLocation) {

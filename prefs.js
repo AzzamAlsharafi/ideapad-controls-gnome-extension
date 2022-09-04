@@ -17,6 +17,8 @@ function fillPreferencesWindow(window) {
     builder.add_from_file(Me.dir.get_path() + "/template.ui");
     let page = builder.get_object('prefs_page');
 
+
+    // Extension Menu - Extension menu location ComboBox
     let locationComboBox = builder.get_object('location_combo');
 
     locationComboBox.set_active_id(settings.get_boolean("tray-location") ? 'tray' : 'system_menu');
@@ -25,6 +27,24 @@ function fillPreferencesWindow(window) {
         settings.set_boolean("tray-location", locationComboBox.get_active_id() === "tray");
     });
 
+    // Extension Menu - Settings button Switch
+    let settingsButtonSwitch = builder.get_object('settings_button_switch');
+
+    settings.bind(
+        'settings-button',
+        settingsButtonSwitch,
+        'active',
+        Gio.SettingsBindFlags.DEFAULT
+    );
+
+
+    // Options - Options switches
+    addOptionsSwitches(builder, settings);
+    
+    window.add(page);
+}
+
+function addOptionsSwitches(builder, settings){
     let optionsGroup = builder.get_object('options_group');
 
     let options = optionsUtils.getOptions();
@@ -52,5 +72,4 @@ function fillPreferencesWindow(window) {
         optionRow.add_suffix(optionSwitch);
         optionRow.activatable_widget = optionSwitch;
     }
-    window.add(page);
 }
