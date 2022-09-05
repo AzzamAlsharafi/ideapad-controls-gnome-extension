@@ -81,6 +81,10 @@ const QSystemMenu = GObject.registerClass(
 
       this.toggleMenu.menu.setHeader(extensionIcon, Me.metadata.name);
       
+      this.toggleMenu.connect("clicked", () => {
+        this.toggleMenu.menu.open();
+      })
+
       QuickSettingsMenu.menu.addItem(this.toggleMenu);
 
       addOptionsToMenu(this.toggleMenu.menu);
