@@ -30,6 +30,8 @@ function fillPreferencesWindow(window) {
     // Extension Menu - Settings button Switch
     let settingsButtonSwitch = builder.get_object('settings_button_switch');
 
+    builder.get_object('settings_button_row').activatable_widget = settingsButtonSwitch;
+
     settings.bind(
         'settings-button',
         settingsButtonSwitch,
