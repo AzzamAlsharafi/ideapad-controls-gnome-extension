@@ -11,31 +11,31 @@ function init() { }
 
 function fillPreferencesWindow(window) {
     const settings = ExtensionUtils.getSettings(
-                'org.gnome.shell.extensions.ideapad-controls');
+                "org.gnome.shell.extensions.ideapad-controls");
 
-    let builder = Gtk.Builder.new();
+    const builder = Gtk.Builder.new();
     builder.add_from_file(Me.dir.get_path() + "/template.ui");
-    let page = builder.get_object('prefs_page');
+    const page = builder.get_object("prefs_page");
 
 
     // Extension Menu - Extension menu location ComboBox
-    let locationComboBox = builder.get_object('location_combo');
+    const locationComboBox = builder.get_object("location_combo");
 
-    locationComboBox.set_active_id(settings.get_boolean("tray-location") ? 'tray' : 'system_menu');
+    locationComboBox.set_active_id(settings.get_boolean("tray-location") ? "tray" : "system_menu");
 
     locationComboBox.connect("changed", () => {
         settings.set_boolean("tray-location", locationComboBox.get_active_id() === "tray");
     });
 
     // Extension Menu - Settings button Switch
-    let settingsButtonSwitch = builder.get_object('settings_button_switch');
+    const settingsButtonSwitch = builder.get_object("settings_button_switch");
 
-    builder.get_object('settings_button_row').activatable_widget = settingsButtonSwitch;
+    builder.get_object("settings_button_row").activatable_widget = settingsButtonSwitch;
 
     settings.bind(
-        'settings-button',
+        "settings-button",
         settingsButtonSwitch,
-        'active',
+        "active",
         Gio.SettingsBindFlags.DEFAULT
     );
 
@@ -47,9 +47,9 @@ function fillPreferencesWindow(window) {
 }
 
 function addOptionsSwitches(builder, settings){
-    let optionsGroup = builder.get_object('options_group');
+    const optionsGroup = builder.get_object("options_group");
 
-    let options = optionsUtils.getOptions();
+    const options = optionsUtils.getOptions();
 
     // Create a Switch for each option
     for (let i = 0; i < options.length; i++) {
@@ -67,7 +67,7 @@ function addOptionsSwitches(builder, settings){
         settings.bind(
             optionKey,
             optionSwitch,
-            'active',
+            "active",
             Gio.SettingsBindFlags.DEFAULT
         );
 
