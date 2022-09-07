@@ -5,10 +5,7 @@ const GLib = imports.gi.GLib;
 
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
-const UIQuickSettings = imports.ui.quickSettings;
 const Main = imports.ui.main;
-const AggregateMenu = Main.panel.statusArea.aggregateMenu; // GNOME 42 System Menu
-const QuickSettingsMenu = Main.panel.statusArea.quickSettings; // GNOME 43 System Menu
 
 const Config = imports.misc.config;
 const [major] = Config.PACKAGE_VERSION.split(".");
@@ -60,7 +57,7 @@ function updateLocation(settings) {
     extensionMenu = new TrayMenu();
     Main.panel.addToStatusArea("ideapad-controls", extensionMenu, 1);
   } else { // System menu mode
-    extensionMenu = getSystemMenu();
+    extensionMenu = new SystemMenu();
   }
 }
 
@@ -68,71 +65,72 @@ function updateLocation(settings) {
 // that's why there are two classes for system menu.
 // GNOME 42 uses AggregateMenu (SystemMenu),
 // and GNOME 43 uses QuickSettings (QSystemMenu).
-function getSystemMenu() {
-  if (shellVersion < 43) {
-    log("GNOME 42");
-    return new SystemMenu();
-  } else {
-    log("GNOME 43");
-    return new QSystemMenu();
+const SystemMenu = registerSystemMenu();
+
+function registerSystemMenu() {
+  if (shellVersion < 43) { // GNOME 42
+    const AggregateMenu = Main.panel.statusArea.aggregateMenu;
+
+    return GObject.registerClass(
+      class SystemMenu extends PanelMenu.SystemIndicator {
+    
+        _init() {
+          super._init();
+    
+          // Create extension's sub menu
+          this.subMenu = new PopupMenu.PopupSubMenuMenuItem(Me.metadata.name, true);
+          this.subMenu.icon.gicon = extensionIcon;
+    
+          // Places the extension's sub menu after the battery sub menu if it exists,
+          // otherwise places the extension's sub menu at the first spot. (Change later? First spot might be bad idea)
+          const menuItems = AggregateMenu.menu._getMenuItems();
+          const subMenuIndex = AggregateMenu._power ? (menuItems.indexOf(AggregateMenu._power.menu) + 1) : 0;
+          AggregateMenu.menu.addMenuItem(this.subMenu, subMenuIndex);
+    
+          addOptionsToMenu(this.subMenu.menu);
+        }
+    
+        destroy() {
+          this.subMenu.destroy();
+          super.destroy();
+        }
+      }
+    );
+  } else { // GNOME 43
+    const UIQuickSettings = imports.ui.quickSettings;
+    const QuickSettingsMenu = Main.panel.statusArea.quickSettings; // GNOME 43 System Menu
+
+    return GObject.registerClass(
+      class QSystemMenu extends UIQuickSettings.SystemIndicator {
+    
+        _init() {
+          super._init();
+    
+          // Create extension's sub menu
+          this.toggleMenu = new UIQuickSettings.QuickMenuToggle({label: "IdeaPad", // Not enough space for full name :(
+            gicon: extensionIcon});
+    
+          this.toggleMenu.menu.setHeader(extensionIcon, Me.metadata.name);
+          
+          // Since this "toggle" menu isn't being used as a toggle button
+          // clicking should just open the menu.
+          this.toggleMenu.connect("clicked", () => {
+            this.toggleMenu.menu.open();
+          })
+    
+          QuickSettingsMenu.menu.addItem(this.toggleMenu);
+    
+          addOptionsToMenu(this.toggleMenu.menu);
+        }
+    
+        destroy() {
+          this.toggleMenu.destroy();
+          super.destroy();
+        }
+      }
+    );
   }
 }
-
-const SystemMenu = GObject.registerClass(
-  class SystemMenu extends PanelMenu.SystemIndicator {
-
-    _init() {
-      super._init();
-
-      // Create extension's sub menu
-      this.subMenu = new PopupMenu.PopupSubMenuMenuItem(Me.metadata.name, true);
-      this.subMenu.icon.gicon = extensionIcon;
-
-      // Places the extension's sub menu after the battery sub menu if it exists,
-      // otherwise places the extension's sub menu at the first spot. (Change later? First spot might be bad idea)
-      const menuItems = AggregateMenu.menu._getMenuItems();
-      const subMenuIndex = AggregateMenu._power ? (menuItems.indexOf(AggregateMenu._power.menu) + 1) : 0;
-      AggregateMenu.menu.addMenuItem(this.subMenu, subMenuIndex);
-
-      addOptionsToMenu(this.subMenu.menu);
-    }
-
-    destroy() {
-      this.subMenu.destroy();
-      super.destroy();
-    }
-  }
-);
-
-const QSystemMenu = GObject.registerClass(
-  class QSystemMenu extends UIQuickSettings.SystemIndicator {
-
-    _init() {
-      super._init();
-
-      // Create extension's sub menu
-      this.toggleMenu = new UIQuickSettings.QuickMenuToggle({label: "IdeaPad", // Not enough space for full name :(
-        gicon: extensionIcon});
-
-      this.toggleMenu.menu.setHeader(extensionIcon, Me.metadata.name);
-      
-      // Since this "toggle" menu isn't being used as a toggle button
-      // clicking should just open the menu.
-      this.toggleMenu.connect("clicked", () => {
-        this.toggleMenu.menu.open();
-      })
-
-      QuickSettingsMenu.menu.addItem(this.toggleMenu);
-
-      addOptionsToMenu(this.toggleMenu.menu);
-    }
-
-    destroy() {
-      this.toggleMenu.destroy();
-      super.destroy();
-    }
-  }
-);
 
 const TrayMenu = GObject.registerClass(
   class TrayMenu extends PanelMenu.Button {
@@ -151,7 +149,6 @@ const TrayMenu = GObject.registerClass(
     }
   }
 );
-
 
 function addOptionsToMenu(menu) {
   const options = optionsUtils.getOptions();
