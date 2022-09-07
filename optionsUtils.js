@@ -28,9 +28,7 @@ function prepareAvailableOptions() {
 
 // Returns available options in this device.
 function getOptions() {
-  log("Get options");
   if (options == null) {
-    log("NO OPTIONS?! CREATE THEM!"); 
     prepareAvailableOptions();
   }
   return options;
