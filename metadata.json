@@ -6,6 +6,6 @@
   "shell-version": [
     "42", "43"
   ],
-  "version": 5,
+  "version": 6,
   "settings-schema": "org.gnome.shell.extensions.ideapad-Controls"
 }
