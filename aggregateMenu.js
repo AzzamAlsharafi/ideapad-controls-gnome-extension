@@ -1,6 +1,12 @@
 const GObject = imports.gi.GObject;
+const Gio = imports.gi.Gio;
 const PanelMenu = imports.ui.panelMenu;
+const PopupMenu = imports.ui.popupMenu;
 const Main = imports.ui.main;
+
+const ExtensionUtils = imports.misc.extensionUtils;
+const Me = ExtensionUtils.getCurrentExtension();
+const Common = Me.imports.common;
 
 const AggregateMenu = Main.panel.statusArea.aggregateMenu;
 
@@ -12,7 +18,7 @@ var SystemMenu = GObject.registerClass(
 
             // Create extension's sub menu
             this.subMenu = new PopupMenu.PopupSubMenuMenuItem(Me.metadata.name, true);
-            this.subMenu.icon.gicon = extensionIcon;
+            this.subMenu.icon.gicon = Common.getIcon();
 
             // Places the extension's sub menu after the battery sub menu if it exists,
             // otherwise places the extension's sub menu at the first spot. (Change later? First spot might be bad idea)
@@ -20,7 +26,7 @@ var SystemMenu = GObject.registerClass(
             const subMenuIndex = AggregateMenu._power ? (menuItems.indexOf(AggregateMenu._power.menu) + 1) : 0;
             AggregateMenu.menu.addMenuItem(this.subMenu, subMenuIndex);
 
-            addOptionsToMenu(this.subMenu.menu);
+            Common.addOptionsToMenu(this.subMenu.menu);
         }
 
         destroy() {

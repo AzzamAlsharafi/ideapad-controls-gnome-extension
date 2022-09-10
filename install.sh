@@ -9,6 +9,7 @@ gnome-extensions pack ./ \
     --extra-source=optionsUtils.js \
     --extra-source=aggregateMenu.js \
     --extra-source=quickSettingsMenu.js \
+    --extra-source=common.js \
     --extra-source=icons/ \
     --extra-source=LICENSE.md \
     --force \
