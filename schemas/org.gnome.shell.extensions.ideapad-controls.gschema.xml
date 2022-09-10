@@ -28,6 +28,10 @@
             <default>true</default>
         </key>
 
+        <key type="b" name="settings-button">
+            <default>true</default>
+        </key>
+
         <!-- TODO -->
 
         <!-- <key type="i" name="fan-mode-option">

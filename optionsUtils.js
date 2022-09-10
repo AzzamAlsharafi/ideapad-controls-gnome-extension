@@ -6,7 +6,7 @@ const filesDir = "/sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/";
 
 // All options that the extension can support, regardless of the current device running the extension.
 const allOptions = ["Conservation Mode", "Camera", "Fn Lock", "Touchpad", "USB Charging"];
-// Files names for each option in the driver files
+// Files names for each option in the driver files.
 const allOptionsFiles = ["conservation_mode", "camera_power", "fn_lock", "touchpad", "usb_charging"];
 
 // Lists to store options supported by this device.
@@ -26,7 +26,7 @@ function prepareAvailableOptions() {
   }
 }
 
-// Returns available options in this device
+// Returns available options in this device.
 function getOptions() {
   if (options == null) {
     prepareAvailableOptions();
@@ -34,7 +34,7 @@ function getOptions() {
   return options;
 }
 
-// Returns available options files in this device
+// Returns available options files in this device.
 function getOptionsFiles() {
   if (optionsFiles == null) {
     prepareAvailableOptions();
@@ -47,7 +47,7 @@ function getOptionValue(optionIndex) {
   const file = Gio.File.new_for_path(filesDir + getOptionsFiles()[optionIndex]);
   const [, contents, etag] = file.load_contents(null);
 
-  const decoder = new TextDecoder('utf-8');
+  const decoder = new TextDecoder("utf-8");
   const contentsString = decoder.decode(contents);
 
   return contentsString.trim();
@@ -55,7 +55,7 @@ function getOptionValue(optionIndex) {
 
 // Write option value to driver file.
 function setOptionValue(optionIndex, value) {
-  GLib.spawn_command_line_async('pkexec bash -c "echo ' + value + ' > ' + filesDir + getOptionsFiles()[optionIndex] + '"');
+  GLib.spawn_command_line_async("pkexec bash -c 'echo " + value + " > " + filesDir + getOptionsFiles()[optionIndex] + "'");
 }
 
 function destroy(){

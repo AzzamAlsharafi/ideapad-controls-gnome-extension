@@ -1,122 +1,43 @@
-const ExtensionUtils = imports.misc.extensionUtils;
-const Main = imports.ui.main;
 const St = imports.gi.St;
 const GObject = imports.gi.GObject;
 const Gio = imports.gi.Gio;
+const GLib = imports.gi.GLib;
+
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
-const GLib = imports.gi.GLib;
-const Me = imports.misc.extensionUtils.getCurrentExtension();
+const Main = imports.ui.main;
 
+const Config = imports.misc.config;
+const [major] = Config.PACKAGE_VERSION.split(".");
+const shellVersion = Number.parseInt(major);
+
+const ExtensionUtils = imports.misc.extensionUtils;
+const Me = ExtensionUtils.getCurrentExtension();
 const optionsUtils = Me.imports.optionsUtils;
+const Common = Me.imports.common;
 
-const AggregateMenu = Main.panel.statusArea.aggregateMenu;
+// Each of GNOME 42 and GNOME 43 use a different system menu,
+// that's why there are two classes for system menu.
+// GNOME 42 uses AggregateMenu (SystemMenu),
+// and GNOME 43 uses QuickSettings (QSystemMenu).
+let {SystemMenu} = shellVersion < 43 ? Me.imports.aggregateMenu : Me.imports.quickSettingsMenu;
 
-const TrayMenu = GObject.registerClass(
-  class TrayMenu extends PanelMenu.Button {
-    _init() {
-      super._init(0);
+function init() {}
 
-      // Tray icon
-      let icon = new St.Icon({
-        gicon: Gio.icon_new_for_string(Me.dir.get_path() + '/icons/controls-big-symbolic.svg'),
-        style_class: 'system-status-icon',
-      });
-
-      this.add_child(icon);
-
-      addOptionsToMenu(this.menu);
-    }
-  }
-);
-
-const SystemMenu = GObject.registerClass(
-  class SystemMenu extends PanelMenu.SystemIndicator {
-
-    _init() {
-      super._init();
-
-      // Create extension's sub menu
-      this.subMenu = new PopupMenu.PopupSubMenuMenuItem(Me.metadata.name, true);
-      this.subMenu.icon.gicon = Gio.icon_new_for_string(Me.dir.get_path() + '/icons/controls-big-symbolic.svg');
-
-      // Places the extension's sub menu after the battery sub menu if it exists,
-      // otherwise places the extension's sub menu at the first spot. (Change later? First spot might be bad idea)
-      const menuItems = AggregateMenu.menu._getMenuItems();
-      const subMenuIndex = AggregateMenu._power ? (menuItems.indexOf(AggregateMenu._power.menu) + 1) : 0
-      AggregateMenu.menu.addMenuItem(this.subMenu, subMenuIndex);
-
-      addOptionsToMenu(this.subMenu.menu);
-    }
-
-    destroy() {
-      this.subMenu.destroy();
-      super.destroy();
-    }
-  }
-);
-
-function addOptionsToMenu(menu) {
-  let settings = ExtensionUtils.getSettings('org.gnome.shell.extensions.ideapad-controls');
-
-  let options = optionsUtils.getOptions();
-
-  // Create a switch item for each option
-  for (let i = 0; i < options.length; i++) {
-    // Convert option title to schema key, i.e. "Camera Lock" becomes "camera-lock-option"
-    const optionKey = options[i].toLowerCase().replace(" ", "-") + "-option";
-
-    let optionSwitch = new PopupMenu.PopupSwitchMenuItem(options[i], optionsUtils.getOptionValue(i) === "1");
-    menu.addMenuItem(optionSwitch);
-
-    settings.bind(
-      optionKey,
-      optionSwitch,
-      'visible',
-      Gio.SettingsBindFlags.DEFAULT
-    );
-
-    optionSwitch.connect('toggled', () => {
-      optionsUtils.getOptionValue(i);
-      optionsUtils.setOptionValue(i, optionSwitch.state ? 1 : 0)
-    });
-  }
-}
-
-function updateLocation(trayLocation) {
-  if (trayLocation) {
-    if (systemMenu != null) {
-      systemMenu.destroy();
-      systemMenu = null;
-    }
-
-    trayMenu = new TrayMenu();
-    Main.panel.addToStatusArea('ideapad-controlMenu', trayMenu, 1);
-  } else {
-    if (trayMenu != null) {
-      trayMenu.destroy();
-      trayMenu = null;
-    }
-
-    systemMenu = new SystemMenu();
-  }
-}
-
-function init() { }
-
-let trayMenu = null;
-let systemMenu = null;
-
+let extensionIcon = null;
+let extensionMenu = null;
 let settings = null;
 let trayListener = null;
 
 function enable() {
-  settings = ExtensionUtils.getSettings('org.gnome.shell.extensions.ideapad-controls');
+  extensionIcon = Common.getIcon();
 
-  updateLocation(settings.get_boolean("tray-location"));
+  settings = ExtensionUtils.getSettings("org.gnome.shell.extensions.ideapad-controls");
+
+  updateLocation(settings);
 
   trayListener = settings.connect("changed::tray-location", () => {
-    updateLocation(settings.get_boolean("tray-location"));
+    updateLocation(settings);
   })
 }
 
@@ -126,15 +47,45 @@ function disable() {
     trayListener = null;
   }
 
-  if (trayMenu != null) {
-    trayMenu.destroy();
-    trayMenu = null;
+  if (extensionMenu != null) {
+    extensionMenu.destroy();
+    extensionMenu = null;
   }
 
-  if (systemMenu != null) {
-    systemMenu.destroy();
-    systemMenu = null;
-  }
+  extensionIcon = null;
+  settings = null;
 
   optionsUtils.destroy();
 }
+
+function updateLocation(settings) {
+  if(extensionMenu != null){
+    extensionMenu.destroy();
+    extensionMenu = null;
+  }
+
+  if (settings.get_boolean("tray-location")) { // Tray mode
+    extensionMenu = new TrayMenu();
+    Main.panel.addToStatusArea("ideapad-controls", extensionMenu, 1);
+  } else { // System menu mode
+    extensionMenu = new SystemMenu();
+  }
+}
+
+const TrayMenu = GObject.registerClass(
+  class TrayMenu extends PanelMenu.Button {
+    _init() {
+      super._init(0);
+
+      // Tray icon
+      const icon = new St.Icon({
+        gicon: extensionIcon,
+        style_class: "system-status-icon",
+      });
+
+      this.add_child(icon);
+
+      Common.addOptionsToMenu(this.menu);
+    }
+  }
+);

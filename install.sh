@@ -4,7 +4,15 @@
 cd "${0%/*}"
 
 echo "Packing extension..."
-gnome-extensions pack ./ --extra-source=optionsUtils.js --extra-source=icons/ --extra-source=LICENSE.md --force
+gnome-extensions pack ./ \
+    --extra-source=template.ui \
+    --extra-source=optionsUtils.js \
+    --extra-source=aggregateMenu.js \
+    --extra-source=quickSettingsMenu.js \
+    --extra-source=common.js \
+    --extra-source=icons/ \
+    --extra-source=LICENSE.md \
+    --force \
 
 echo "Installing extension..."
 gnome-extensions install ideapad-controls@azzamalsharafi.gmail.com.shell-extension.zip --force
