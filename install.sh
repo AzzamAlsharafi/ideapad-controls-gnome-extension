@@ -7,6 +7,8 @@ echo "Packing extension..."
 gnome-extensions pack ./ \
     --extra-source=template.ui \
     --extra-source=optionsUtils.js \
+    --extra-source=aggregateMenu.js \
+    --extra-source=quickSettingsMenu.js \
     --extra-source=icons/ \
     --extra-source=LICENSE.md \
     --force \
