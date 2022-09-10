@@ -4,7 +4,7 @@ const Main = imports.ui.main;
 const UIQuickSettings = imports.ui.quickSettings;
 const QuickSettingsMenu = Main.panel.statusArea.quickSettings; // GNOME 43 System Menu
 
-const SystemMenu = GObject.registerClass(
+var SystemMenu = GObject.registerClass(
     class QSystemMenu extends UIQuickSettings.SystemIndicator {
 
         _init() {

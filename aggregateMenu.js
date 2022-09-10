@@ -4,7 +4,7 @@ const Main = imports.ui.main;
 
 const AggregateMenu = Main.panel.statusArea.aggregateMenu;
 
-const SystemMenu = GObject.registerClass(
+var SystemMenu = GObject.registerClass(
     class SystemMenu extends PanelMenu.SystemIndicator {
 
         _init() {

@@ -19,7 +19,7 @@ const optionsUtils = Me.imports.optionsUtils;
 // that's why there are two classes for system menu.
 // GNOME 42 uses AggregateMenu (SystemMenu),
 // and GNOME 43 uses QuickSettings (QSystemMenu).
-let SystemMenu = shellVersion < 43 ? Me.imports.aggregateMenu.SystemMenu : Me.imports.quickSettingsMenu.SystemMenu;
+let {SystemMenu} = shellVersion < 43 ? Me.imports.aggregateMenu.SystemMenu : Me.imports.quickSettingsMenu.SystemMenu;
 
 function init() {}
 
