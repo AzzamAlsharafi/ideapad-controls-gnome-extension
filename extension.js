@@ -29,10 +29,6 @@ let settings = null;
 let trayListener = null;
 
 function enable() {
-  log("<here");
-  log(SystemMenu);
-  log("here>");
-
   extensionIcon = Gio.icon_new_for_string(Me.dir.get_path() + "/icons/controls-big-symbolic.svg");
 
   settings = ExtensionUtils.getSettings("org.gnome.shell.extensions.ideapad-controls");
