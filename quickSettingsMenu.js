@@ -17,7 +17,10 @@ var SystemMenu = GObject.registerClass(
 
             // Create extension's sub menu
             this.toggleMenu = new UIQuickSettings.QuickMenuToggle({
+                // GNOME 43
                 label: "IdeaPad", // Not enough space for full name :(
+                // GNOME 44
+                title: "IdeaPad",
                 gicon: Common.getIcon()
             });
 
