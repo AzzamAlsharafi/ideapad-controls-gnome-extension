@@ -2,6 +2,10 @@ const GObject = imports.gi.GObject;
 const Gio = imports.gi.Gio;
 const Main = imports.ui.main;
 
+const Config = imports.misc.config;
+const [major] = Config.PACKAGE_VERSION.split(".");
+const shellVersion = Number.parseInt(major);
+
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Common = Me.imports.common;
@@ -33,6 +37,11 @@ var SystemMenu = GObject.registerClass(
             })
 
             QuickSettingsMenu.menu.addItem(this.toggleMenu);
+
+            if (shellVersion >= 44) {
+                // Move toggleMenu above Background Apps item. (GNOME 44)
+                QuickSettingsMenu.menu._grid.set_child_below_sibling(this.toggleMenu, QuickSettingsMenu._backgroundApps.quickSettingsItems[0]);
+            }
 
             Common.addOptionsToMenu(this.toggleMenu.menu);
         }
