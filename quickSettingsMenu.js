@@ -19,12 +19,13 @@ var SystemMenu = GObject.registerClass(
         _init() {
             super._init();
 
+            const toggleTitle = shellVersion == 43 ? 
+            { label: "IdeaPad" } : // GNOME 43 
+            { title: "IdeaPad" }   // GNOME 44
+
             // Create extension's sub menu
             this.toggleMenu = new UIQuickSettings.QuickMenuToggle({
-                // GNOME 43
-                label: "IdeaPad", // Not enough space for full name :(
-                // GNOME 44
-                title: "IdeaPad",
+                ...toggleTitle,
                 gicon: Common.getIcon()
             });
 
