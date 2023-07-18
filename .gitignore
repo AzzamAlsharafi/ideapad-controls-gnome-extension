@@ -1,0 +1,6 @@
+# Extension built ZIP
+*.zip
+
+# Compliled GSChema
+gschemas.compiled
+
