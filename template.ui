@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <object class="AdwPreferencesPage" id="prefs_page">
-    
     <child>
       <object class="AdwPreferencesGroup" id="extension_menu_group">
         <property name="title">Extension Menu</property>
+        <child>
+          <object class="AdwEntryRow" id="sysfs_path_entry">
+            <property name="title">Sysfs path of the ideapad_laptop dir</property>
+          </object>
+        </child>
         <child>
           <object class="AdwActionRow" id="location_row">
             <property name="title">Extension menu location</property>

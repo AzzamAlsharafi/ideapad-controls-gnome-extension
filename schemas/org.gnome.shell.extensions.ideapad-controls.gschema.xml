@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
     <schema id="org.gnome.shell.extensions.ideapad-controls" path="/org/gnome/shell/extensions/ideapad-controls/">
+        <key type="s" name="sysfs-path">
+          <default>"/sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/"</default>
+        </key>
+
         <key type="b" name="conservation-mode-option">
             <default>true</default>
         </key>
-        
+
         <key type="b" name="camera-option">
             <default>true</default>
         </key>

@@ -12,7 +12,7 @@ gnome-extensions pack ./ \
     --extra-source=common.js \
     --extra-source=icons/ \
     --extra-source=LICENSE.md \
-    --force \
+    --force
 
 echo "Installing extension..."
 gnome-extensions install ideapad-controls@azzamalsharafi.gmail.com.shell-extension.zip --force

@@ -32,7 +32,7 @@ let trayListener = null;
 function enable() {
   extensionIcon = Common.getIcon();
 
-  settings = ExtensionUtils.getSettings("org.gnome.shell.extensions.ideapad-controls");
+  settings = ExtensionUtils.getSettings();
 
   updateLocation(settings);
 

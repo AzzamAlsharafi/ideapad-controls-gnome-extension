@@ -11,7 +11,7 @@ function getIcon() {
 }
 
 function addOptionsToMenu(menu) {
-  const settings = ExtensionUtils.getSettings("org.gnome.shell.extensions.ideapad-controls");
+  const settings = ExtensionUtils.getSettings();
 
   const options = optionsUtils.getOptions();
 

@@ -1,8 +1,10 @@
 const GLib = imports.gi.GLib;
 const Gio = imports.gi.Gio;
+const ExtensionUtils = imports.misc.extensionUtils;
+const extensionSettings = ExtensionUtils.getSettings();
 
 // Driver path
-const filesDir = "/sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/";
+const filesSysfsDir = extensionSettings.get_string("sysfs-path")
 
 // All options that the extension can support, regardless of the current device running the extension.
 const allOptions = ["Conservation Mode", "Camera", "Fn Lock", "Touchpad", "USB Charging"];
@@ -19,7 +21,7 @@ function prepareAvailableOptions() {
   optionsFiles = [];
   
   for (let i = 0; i < allOptionsFiles.length; i++) {
-    if(GLib.file_test(filesDir + allOptionsFiles[i], GLib.FileTest.EXISTS)){
+    if(GLib.file_test(filesSysfsDir + allOptionsFiles[i], GLib.FileTest.EXISTS)){
       options.push(allOptions[i]);
       optionsFiles.push(allOptionsFiles[i]);
     }
@@ -44,7 +46,7 @@ function getOptionsFiles() {
 
 // Read option value from driver file.
 function getOptionValue(optionIndex) {
-  const file = Gio.File.new_for_path(filesDir + getOptionsFiles()[optionIndex]);
+  const file = Gio.File.new_for_path(filesSysfsDir + getOptionsFiles()[optionIndex]);
   const [, contents, etag] = file.load_contents(null);
 
   const decoder = new TextDecoder("utf-8");
@@ -55,15 +57,15 @@ function getOptionValue(optionIndex) {
 
 // Write option value to driver file.
 function setOptionValue(optionIndex, value) {
-  GLib.spawn_command_line_async("pkexec bash -c 'echo " + value + " > " + filesDir + getOptionsFiles()[optionIndex] + "'");
+  GLib.spawn_command_line_async("pkexec bash -c 'echo " + value + " > " + filesSysfsDir + getOptionsFiles()[optionIndex] + "'");
 }
 
-function destroy(){
-  if(options != null){
+function destroy() {
+  if(options != null) {
     options = null;
   }
   
-  if(optionsFiles != null){
+  if(optionsFiles != null) {
     optionsFiles = null;
   }
 }
