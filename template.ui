@@ -35,6 +35,17 @@
             </child>
           </object>
         </child>
+        <child>
+          <object class="AdwActionRow" id="pkexec_button_row">
+            <property name="title">Use pkexec</property>
+            <property name="subtitle">Enable to make ideapad_laptop wrap its write commands with pkexec to request root privileges. Disable only if you have a proper permissions setup (see README for more details)</property>
+            <child>
+              <object class="GtkSwitch" id="pkexec_button_switch">
+                <property name="valign">center</property>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
     </child>
 

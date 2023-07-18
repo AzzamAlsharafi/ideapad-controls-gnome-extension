@@ -57,7 +57,12 @@ function getOptionValue(optionIndex) {
 
 // Write option value to driver file.
 function setOptionValue(optionIndex, value) {
-  GLib.spawn_command_line_async("pkexec bash -c 'echo " + value + " > " + filesSysfsDir + getOptionsFiles()[optionIndex] + "'");
+  const optionFile = getOptionsFiles()[optionIndex];
+  if (extensionSettings.get_boolean("use-pkexec")) {
+    GLib.spawn_command_line_async("pkexec bash -c 'echo " + value + " > " + filesSysfsDir + optionFile + "'");
+  } else {
+    GLib.spawn_command_line_async("bash -c 'echo " + value + " > " + filesSysfsDir + optionFile + "'");
+  }
 }
 
 function destroy() {

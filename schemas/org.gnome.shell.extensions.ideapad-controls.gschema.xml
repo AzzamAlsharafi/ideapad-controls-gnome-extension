@@ -36,6 +36,14 @@
             <default>true</default>
         </key>
 
+        <!--
+          Choose whether the extension should use `pkexec` to elevate privileges to write ideapad_laptop sysfs nodes
+          or directly write the file if the user has proper permissions
+        -->
+        <key type="b" name="use-pkexec">
+            <default>true</default>
+        </key>
+
         <!-- TODO -->
 
         <!-- <key type="i" name="fan-mode-option">

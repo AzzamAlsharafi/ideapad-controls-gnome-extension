@@ -46,6 +46,18 @@ function fillPreferencesWindow(window) {
         Gio.SettingsBindFlags.DEFAULT
     );
 
+    // Extension Menu - pkexec button switch
+    const pkexecButtonSwitch = builder.get_object("pkexec_button_switch");
+
+    builder.get_object("pkexec_button_row").activatable_widget = pkexecButtonSwitch;
+
+    extensionSettings.bind(
+        "use-pkexec",
+        pkexecButtonSwitch,
+        "active",
+        Gio.SettingsBindFlags.DEFAULT
+    );
+
 
     // Options - Options switches
     addOptionsSwitches(builder);
