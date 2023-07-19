@@ -20,6 +20,7 @@ function init() {
 
 function fillPreferencesWindow(window) {
     const builder = Gtk.Builder.new();
+    builder.translation_domain = Me.metadata.uuid;
     builder.add_from_file(Me.dir.get_path() + "/template.ui");
     const page = builder.get_object("prefs_page");
 

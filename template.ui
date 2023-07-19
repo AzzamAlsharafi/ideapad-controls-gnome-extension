@@ -1,70 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
+  <requires lib="gtk" version="4.0"/>
   <object class="AdwPreferencesPage" id="prefs_page">
     <child>
       <object class="AdwPreferencesGroup" id="extension_menu_group">
-        <property name="title">Extension Menu</property>
+        <property name="title" translatable="true">Extension Menu</property>
         <child>
           <object class="AdwEntryRow" id="sysfs_path_entry">
-            <property name="title">Sysfs path of the ideapad_laptop dir</property>
+            <property name="title" translatable="true">Sysfs path of the ideapad_laptop dir</property>
           </object>
         </child>
         <child>
           <object class="AdwActionRow" id="location_row">
-            <property name="title">Extension menu location</property>
-            <property name="subtitle">Choose where to place the extension menu.</property>
+            <property name="title" translatable="true">Extension menu location</property>
+            <property name="subtitle" translatable="true">Choose where to place the extension menu.</property>
             <child>
               <object class="GtkComboBoxText" id="location_combo">
-                <property name="valign">center</property>
+                <property name="valign">3</property>
                 <items>
-                  <item id="tray">Tray</item>
-                  <item id="system_menu">System Menu</item>
+                  <item id="tray" translatable="true">Tray</item>
+                  <item id="system_menu" translatable="true">System Menu</item>
                 </items>
-              </object>              
+              </object>
             </child>
           </object>
         </child>
         <child>
           <object class="AdwActionRow" id="settings_button_row">
-            <property name="title">Settings button</property>
-            <property name="subtitle">Enable to show Extension Settings button.</property>
+            <property name="title" translatable="true">Settings button</property>
+            <property name="subtitle" translatable="true">Enable to show Extension Settings button.</property>
             <child>
               <object class="GtkSwitch" id="settings_button_switch">
-                <property name="valign">center</property>
-              </object>              
+                <property name="valign">3</property>
+              </object>
             </child>
           </object>
         </child>
         <child>
           <object class="AdwActionRow" id="pkexec_button_row">
-            <property name="title">Use pkexec</property>
-            <property name="subtitle">Enable to make ideapad_laptop wrap its write commands with pkexec to request root privileges. Disable only if you have a proper permissions setup (see README for more details)</property>
+            <property name="title" translatable="true">Use pkexec</property>
+            <property name="subtitle" translatable="true">Enable to make ideapad_laptop wrap its write commands with pkexec to request root privileges. Disable only if you have a proper permissions setup (see README for more details)</property>
             <child>
               <object class="GtkSwitch" id="pkexec_button_switch">
-                <property name="valign">center</property>
+                <property name="valign">3</property>
               </object>
             </child>
           </object>
         </child>
         <child>
           <object class="AdwActionRow" id="notifications_button_row">
-            <property name="title">Send success notifications</property>
-            <property name="subtitle">Enable to make the extension send notifications when it enables an option successfully</property>
+            <property name="title" translatable="true">Send success notifications</property>
+            <property name="subtitle" translatable="true">Enable to make the extension send notifications when it enables an option successfully</property>
             <child>
               <object class="GtkSwitch" id="notifications_button_switch">
-                <property name="valign">center</property>
+                <property name="valign">3</property>
               </object>
             </child>
           </object>
-        </child>"
+        </child>
       </object>
     </child>
-
     <child>
       <object class="AdwPreferencesGroup" id="options_group">
-        <property name="title">Options</property>
-        <property name="description">Choose which options to keep in the extension menu.</property>
-        <!-- The switches for the options have to be declared with javascript. -->
+        <property name="title" translatable="true">Options</property>
+        <property name="description" translatable="true">Choose which options to keep in the extension menu.</property>
       </object>
     </child>
   </object>

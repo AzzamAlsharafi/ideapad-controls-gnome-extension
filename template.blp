@@ -1,0 +1,57 @@
+using Gtk 4.0;
+using Adw 1;
+
+Adw.PreferencesPage prefs_page {
+  Adw.PreferencesGroup extension_menu_group {
+    title: _("Extension Menu");
+
+    Adw.EntryRow sysfs_path_entry {
+      title: _("Sysfs path of the ideapad_laptop dir");
+    }
+
+    Adw.ActionRow location_row {
+      title: _("Extension menu location");
+      subtitle: _("Choose where to place the extension menu.");
+
+      ComboBoxText location_combo {
+        valign: center;
+        items [
+          tray: _("Tray"),
+          system_menu: _("System Menu")
+        ]
+      }
+    }
+
+    Adw.ActionRow settings_button_row {
+      title: _("Settings button");
+      subtitle: _("Enable to show Extension Settings button.");
+
+      Switch settings_button_switch {
+        valign: center;
+      }
+    }
+
+    Adw.ActionRow pkexec_button_row {
+      title: _("Use pkexec");
+      subtitle: _("Enable to make ideapad_laptop wrap its write commands with pkexec to request root privileges. Disable only if you have a proper permissions setup (see README for more details)");
+
+      Switch pkexec_button_switch {
+        valign: center;
+      }
+    }
+
+    Adw.ActionRow notifications_button_row {
+      title: _("Send success notifications");
+      subtitle: _("Enable to make the extension send notifications when it enables an option successfully");
+
+      Switch notifications_button_switch {
+        valign: center;
+      }
+    }
+  }
+
+  Adw.PreferencesGroup options_group {
+    title: _("Options");
+    description: _("Choose which options to keep in the extension menu.");
+  }
+}
