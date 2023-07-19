@@ -4,3 +4,6 @@
 # Compliled GSChema
 gschemas.compiled
 
+# L10N
+*.mo
+
