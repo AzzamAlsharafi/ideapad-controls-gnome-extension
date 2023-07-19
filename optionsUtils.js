@@ -15,6 +15,30 @@ const allOptionsFiles = ["conservation_mode", "camera_power", "fn_lock", "touchp
 let options = null;
 let optionsFiles = null;
 
+async function writeStringToFile(string, filePath) {
+  const fd = Gio.File.new_for_path(filePath);
+  const contentBytes = new GLib.Bytes(string);
+
+  try {
+    await new Promise((resolve, reject) => {
+      // Try to write the file and throw an error if it's not writable
+      // We don't use the REPLACE_DESTINATION FileCreateFlag, as it would lead to permission errors.
+      fd.replace_contents_bytes_async(contentBytes, null, false, Gio.FileCreateFlags.NONE, null, (_, res) => {
+        try {
+          resolve(fd.replace_contents_finish(res));
+        } catch (e) {
+          reject(e);
+        }
+      });
+
+    });
+  } catch(e) {
+    imports.ui.main.notify("Ideapad Controls", `Can't write ${string} to ${filePath}. See journalctl logs for more details`);
+    console.log(`Something went wrong while writing ${string} to ${filePath}: ${e}`);
+    console.log(`Look at the readme for permission errors fixes.`);
+  }
+}
+
 // Check each option and determine if they are available in this device.
 function prepareAvailableOptions() {
   options = [];
@@ -58,10 +82,12 @@ function getOptionValue(optionIndex) {
 // Write option value to driver file.
 function setOptionValue(optionIndex, value) {
   const optionFile = getOptionsFiles()[optionIndex];
+  const destinationFile = filesSysfsDir + optionFile;
   if (extensionSettings.get_boolean("use-pkexec")) {
-    GLib.spawn_command_line_async("pkexec bash -c 'echo " + value + " > " + filesSysfsDir + optionFile + "'");
+    GLib.spawn_command_line_async("pkexec bash -c 'echo " + value + " > " + destinationFile + "'");
   } else {
-    GLib.spawn_command_line_async("bash -c 'echo " + value + " > " + filesSysfsDir + optionFile + "'");
+    console.log("Writing string to file " + value + " " + destinationFile);
+    writeStringToFile(value.toString(), destinationFile);
   }
 }
 

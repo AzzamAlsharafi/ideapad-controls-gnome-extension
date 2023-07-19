@@ -5,7 +5,6 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const optionsUtils = Me.imports.optionsUtils;
 
-
 function getIcon() {
   return Gio.icon_new_for_string(Me.dir.get_path() + "/icons/controls-big-symbolic.svg");
 }
