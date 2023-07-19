@@ -39,8 +39,7 @@ tmpfiles-install: $(TMPFILES_CONF)
 	@echo "Installed tmpfiles.d configuration. Reboot or run 'systemd-tmpfiles --create' to make it effective"
 
 clean:
-	rm -f $(EXTENSION_ZIP)
+	rm -f $(EXTENSION_ZIP) template.ui
 
 all: install
-
 
