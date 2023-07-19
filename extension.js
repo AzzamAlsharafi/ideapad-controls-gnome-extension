@@ -22,7 +22,10 @@ const Common = Me.imports.common;
 // and GNOME 43 uses QuickSettings (QSystemMenu).
 let {SystemMenu} = shellVersion < 43 ? Me.imports.aggregateMenu : Me.imports.quickSettingsMenu;
 
-function init() {}
+function init() {
+    // Initialise gettext
+    ExtensionUtils.initTranslations(Me.metadata.uuid);
+}
 
 let extensionIcon = null;
 let extensionMenu = null;

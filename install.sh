@@ -12,6 +12,7 @@ gnome-extensions pack ./ \
     --extra-source=common.js \
     --extra-source=icons/ \
     --extra-source=LICENSE.md \
+    --podir=po \
     --force
 
 echo "Installing extension..."

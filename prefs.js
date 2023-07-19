@@ -1,14 +1,22 @@
 'use strict';
 
 const { Adw, Gio, Gtk } = imports.gi;
+const Gettext = imports.gettext;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 
+const Domain = Gettext.domain(Me.metadata.uuid);
+const { gettext, ngettext } = Domain;
+const _ = gettext;
+
 const optionsUtils = Me.imports.optionsUtils;
 const extensionSettings = ExtensionUtils.getSettings();
 
-function init() { }
+function init() {
+    // Initialise gettext
+    ExtensionUtils.initTranslations(Me.metadata.uuid);
+}
 
 function fillPreferencesWindow(window) {
     const builder = Gtk.Builder.new();
@@ -80,13 +88,14 @@ function fillPreferencesWindow(window) {
 function addOptionsSwitches(builder){
     const optionsGroup = builder.get_object("options_group");
     const options = optionsUtils.getOptions();
+    const translatedOptions = optionsUtils.getTranslatedOptions();
 
     // Create a Switch for each option
     for (let i = 0; i < options.length; i++) {
         // Convert option title to schema key, i.e. "Camera Lock" becomes "camera-lock-option"
         const optionKey = options[i].toLowerCase().replace(" ", "-") + "-option";
 
-        const optionRow = new Adw.ActionRow({ title: options[i] + " Option" });
+        const optionRow = new Adw.ActionRow({ title: _("%s Option").format(translatedOptions[i]) });
         optionsGroup.add(optionRow);
 
         const optionSwitch = new Gtk.Switch({
