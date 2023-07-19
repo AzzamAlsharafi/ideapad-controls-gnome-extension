@@ -37,5 +37,5 @@ groupadd ideapad_laptop
 usermod -aG ideapad_laptop $USER
 ```
 
-Then, copy `99-ideapad.conf` (from the root of this repository) to `/etc/tmpfiles.d` and reboot your system.
+Then run `sudo make tmpfiles-install`
 

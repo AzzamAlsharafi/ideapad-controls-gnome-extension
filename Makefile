@@ -1,4 +1,5 @@
 EXTENSION_ZIP := ideapad-controls@azzamalsharafi.gmail.com.shell-extension.zip
+TMPFILES_CONF := 99-ideapad.conf
 
 subprojects:
 	@git submodule update --resursive
@@ -32,8 +33,14 @@ install: $(EXTENSION_ZIP)
 	gnome-extensions install --force $(EXTENSION_ZIP)
 	@echo "Extension installed"
 
+tmpfiles-install: $(TMPFILES_CONF)
+	@echo "Installing tmpfiles.d configuration"
+	cp -v $(TMPFILES_CONF) /etc/tmpfiles.d/$(TMPFILES_CONF)
+	@echo "Installed tmpfiles.d configuration. Reboot or run 'systemd-tmpfiles --create' to make it effective"
+
 clean:
 	rm -f $(EXTENSION_ZIP)
 
 all: install
+
 
