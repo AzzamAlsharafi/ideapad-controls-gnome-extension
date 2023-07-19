@@ -88,6 +88,9 @@ function setOptionValue(optionIndex, value) {
   } else {
     console.log("Writing string to file " + value + " " + destinationFile);
     writeStringToFile(value.toString(), destinationFile);
+    if (extensionSettings.get_boolean("send-success-notifications")) {
+      imports.ui.main.notify("Ideapad controls", `${value == true ? "Enabled" : "Disabled"} ${getOptions()[optionIndex]}`);
+    }
   }
 }
 

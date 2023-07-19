@@ -43,6 +43,12 @@
         <key type="b" name="use-pkexec">
             <default>true</default>
         </key>
+      <!--
+        Choose whether the extension should notify when writing files is successfull or not
+      -->
+        <key type="b" name="send-success-notifications">
+            <default>true</default>
+        </key>
 
         <!-- TODO -->
 

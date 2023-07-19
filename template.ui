@@ -46,6 +46,17 @@
             </child>
           </object>
         </child>
+        <child>
+          <object class="AdwActionRow" id="notifications_button_row">
+            <property name="title">Send success notifications</property>
+            <property name="subtitle">Enable to make the extension send notifications when it enables an option successfully</property>
+            <child>
+              <object class="GtkSwitch" id="notifications_button_switch">
+                <property name="valign">center</property>
+              </object>
+            </child>
+          </object>
+        </child>"
       </object>
     </child>
 

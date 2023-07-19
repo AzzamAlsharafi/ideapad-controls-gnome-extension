@@ -58,6 +58,18 @@ function fillPreferencesWindow(window) {
         Gio.SettingsBindFlags.DEFAULT
     );
 
+    // Extension Menu - notifications button switch
+    const notificationsButtonSwitch = builder.get_object("notifications_button_switch");
+
+    builder.get_object("notifications_button_row").activatable_widget = notificationsButtonSwitch;
+
+    extensionSettings.bind(
+        "send-success-notifications",
+        notificationsButtonSwitch,
+        "active",
+        Gio.SettingsBindFlags.DEFAULT
+    );
+
 
     // Options - Options switches
     addOptionsSwitches(builder);
