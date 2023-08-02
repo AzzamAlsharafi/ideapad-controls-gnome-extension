@@ -107,9 +107,10 @@ function setOptionValue(optionIndex, value) {
   } else {
     console.log("Writing string to file " + value + " " + destinationFile);
     writeStringToFile(value.toString(), destinationFile);
-    if (extensionSettings.get_boolean("send-success-notifications")) {
-      imports.ui.main.notify(_("Ideapad Controls"), `${value == true ? _("Enabled") : _("Disabled")} ${getTranslatedOptions()[optionIndex]}`);
-    }
+  }
+
+  if (extensionSettings.get_boolean("send-success-notifications")) {
+    imports.ui.main.notify(_("Ideapad Controls"), `${value == true ? _("Enabled") : _("Disabled")} ${getTranslatedOptions()[optionIndex]}`);
   }
 }
 
