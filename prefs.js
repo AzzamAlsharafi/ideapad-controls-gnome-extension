@@ -43,6 +43,12 @@ function fillPreferencesWindow(window) {
       Gio.SettingsBindFlags.DEFAULT
     );
 
+    // Sysfs reset button
+    const sysfsResetButton = builder.get_object("sysfs_reset_button");
+    sysfsResetButton.connect("clicked", () => {
+        extensionSettings.reset("sysfs-path");
+    });
+
     // Extension Menu - Settings button Switch
     const settingsButtonSwitch = builder.get_object("settings_button_switch");
 

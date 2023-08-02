@@ -8,6 +8,11 @@
         <child>
           <object class="AdwEntryRow" id="sysfs_path_entry">
             <property name="title" translatable="true">Sysfs path of the ideapad_laptop dir</property>
+            <child>
+              <object class="GtkButton" id="sysfs_reset_button">
+                <property name="icon-name">view-refresh-symbolic</property>
+              </object>
+            </child>
           </object>
         </child>
         <child>
