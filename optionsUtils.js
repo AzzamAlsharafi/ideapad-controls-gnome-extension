@@ -3,7 +3,6 @@ const Gio = imports.gi.Gio;
 const Gettext = imports.gettext;
 const ExtensionUtils = imports.misc.extensionUtils;
 
-const extensionSettings = ExtensionUtils.getSettings();
 const Me = ExtensionUtils.getCurrentExtension();
 
 const Domain = Gettext.domain(Me.metadata.uuid);
@@ -11,7 +10,7 @@ const { gettext, ngettext } = Domain;
 const _ = gettext;
 
 // Driver path
-const filesSysfsDir = extensionSettings.get_string("sysfs-path")
+let filesSysfsDir = null;
 
 // All options that the extension can support, regardless of the current device running the extension.
 const allOptions = [_("Conservation Mode"), _("Camera"), _("Fn Lock"), _("Touchpad"), _("USB Charging")];
@@ -22,6 +21,9 @@ const allOptionsFiles = ["conservation_mode", "camera_power", "fn_lock", "touchp
 let options = null;
 let translatedOptions = null;
 let optionsFiles = null;
+
+// Extensions settings
+let extensionSettings = null;
 
 async function writeStringToFile(string, filePath) {
   const fd = Gio.File.new_for_path(filePath);
@@ -54,6 +56,12 @@ function prepareAvailableOptions() {
   translatedOptions = [];
   optionsFiles = [];
   
+  if (!extensionSettings) {
+    extensionSettings = ExtensionUtils.getSettings();
+  }
+
+  filesSysfsDir = extensionSettings.get_string("sysfs-path")
+
   for (let i = 0; i < allOptionsFiles.length; i++) {
     if(GLib.file_test(filesSysfsDir + allOptionsFiles[i], GLib.FileTest.EXISTS)){
       options.push(allOptions[i]);

@@ -11,7 +11,6 @@ const { gettext, ngettext } = Domain;
 const _ = gettext;
 
 const optionsUtils = Me.imports.optionsUtils;
-const extensionSettings = ExtensionUtils.getSettings();
 
 function init() {
     // Initialise gettext
@@ -23,7 +22,7 @@ function fillPreferencesWindow(window) {
     builder.translation_domain = Me.metadata.uuid;
     builder.add_from_file(Me.dir.get_path() + "/template.ui");
     const page = builder.get_object("prefs_page");
-
+    const extensionSettings = ExtensionUtils.getSettings();
 
     // Extension Menu - Extension menu location ComboBox
     const locationComboBox = builder.get_object("location_combo");
@@ -87,12 +86,12 @@ function fillPreferencesWindow(window) {
 
 
     // Options - Options switches
-    addOptionsSwitches(builder);
+    addOptionsSwitches(builder, extensionSettings);
     
     window.add(page);
 }
 
-function addOptionsSwitches(builder){
+function addOptionsSwitches(builder, extensionSettings) {
     const optionsGroup = builder.get_object("options_group");
     const options = optionsUtils.getOptions();
     const translatedOptions = optionsUtils.getTranslatedOptions();
