@@ -135,5 +135,9 @@ function destroy() {
   if(optionsFiles != null) {
     optionsFiles = null;
   }
+
+  if(extensionSettings != null) {
+    extensionSettings = null;
+  }
 }
 
