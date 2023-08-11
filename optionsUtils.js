@@ -102,15 +102,20 @@ function getOptionValue(optionIndex) {
 function setOptionValue(optionIndex, value) {
   const optionFile = getOptionsFiles()[optionIndex];
   const destinationFile = filesSysfsDir + optionFile;
+  const notificationBody = `${value == true ? _("Enabled") : _("Disabled")} ${getTranslatedOptions()[optionIndex]}`;
+
   if (extensionSettings.get_boolean("use-pkexec")) {
-    GLib.spawn_command_line_async("pkexec bash -c 'echo " + value + " > " + destinationFile + "'");
+    if (extensionSettings.get_boolean("send-success-notifications")) {
+       GLib.spawn_command_line_async("bash -c \"pkexec bash -c 'echo " + value + " > " + destinationFile + `' && notify-send '${_("Ideapad Controls")}' '${notificationBody}' "`);
+    } else {
+       GLib.spawn_command_line_async("pkexec bash -c 'echo " + value + " > " + destinationFile + "'");
+    }
   } else {
     console.log("Writing string to file " + value + " " + destinationFile);
     writeStringToFile(value.toString(), destinationFile);
-  }
-
-  if (extensionSettings.get_boolean("send-success-notifications")) {
-    imports.ui.main.notify(_("Ideapad Controls"), `${value == true ? _("Enabled") : _("Disabled")} ${getTranslatedOptions()[optionIndex]}`);
+    if (extensionSettings.get_boolean("send-success-notifications")) {
+      imports.ui.main.notify(_("Ideapad Controls"), notificationBody);
+    }
   }
 }
 
