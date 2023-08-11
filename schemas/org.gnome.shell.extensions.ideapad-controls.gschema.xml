@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
     <schema id="org.gnome.shell.extensions.ideapad-controls" path="/org/gnome/shell/extensions/ideapad-controls/">
+        <key type="s" name="sysfs-path">
+          <default>"/sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/"</default>
+        </key>
+
         <key type="b" name="conservation-mode-option">
             <default>true</default>
         </key>
-        
+
         <key type="b" name="camera-option">
             <default>true</default>
         </key>
@@ -29,6 +33,20 @@
         </key>
 
         <key type="b" name="settings-button">
+            <default>true</default>
+        </key>
+
+        <!--
+          Choose whether the extension should use `pkexec` to elevate privileges to write ideapad_laptop sysfs nodes
+          or directly write the file if the user has proper permissions
+        -->
+        <key type="b" name="use-pkexec">
+            <default>true</default>
+        </key>
+      <!--
+        Choose whether the extension should notify when writing files is successfull or not
+      -->
+        <key type="b" name="send-success-notifications">
             <default>true</default>
         </key>
 

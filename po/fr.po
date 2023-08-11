@@ -1,0 +1,133 @@
+# Translations for Ideapad Controls gnome extension
+# Copyright (C) 2022-23
+# This file is distributed under the same license as the Ideapad Controls package.
+# Azzamalsharafi <ideapad-controls@azzamalsharafi.gmail.com>, 2022-23
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-19 18:19+0200\n"
+"PO-Revision-Date: 2023-07-19 19:15+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.3.2\n"
+
+#: template.blp:6
+msgid "Extension Menu"
+msgstr "Menu de l'extension"
+
+#: template.blp:9
+msgid "Sysfs path of the ideapad_laptop dir"
+msgstr "Chemin du dossier ideapad_laptop (sysfs)"
+
+#: template.blp:13
+msgid "Extension menu location"
+msgstr "Emplacement du menu de l'extension"
+
+#: template.blp:14
+msgid "Choose where to place the extension menu."
+msgstr "Choisir ou placer le menu de l'extension."
+
+#: template.blp:19
+msgid "Tray"
+msgstr "Barre d'état (Tray)"
+
+#: template.blp:20
+msgid "System Menu"
+msgstr "Menu système"
+
+#: template.blp:26
+msgid "Settings button"
+msgstr "Bouton des paramètres"
+
+#: template.blp:27
+msgid "Enable to show Extension Settings button."
+msgstr "Activer le bouton des paramètres de l'extension."
+
+#: template.blp:35
+msgid "Use pkexec"
+msgstr "Utiliser pkexec"
+
+#: template.blp:36
+msgid ""
+"Enable to make ideapad_laptop wrap its write commands with pkexec to request "
+"root privileges. Disable only if you have a proper permissions setup (see "
+"README for more details)"
+msgstr ""
+"Activer pour faire en sorte que ideapad_laptop utilise pkexec pour demander "
+"les privilèges du super-utilisateur. Désactiver seulement si vous avez "
+"configuré les permissions comme indiqué dans le README"
+
+#: template.blp:44
+msgid "Send success notifications"
+msgstr "Envoyer des notifications de succès"
+
+#: template.blp:45
+msgid ""
+"Enable to make the extension send notifications when it enables an option "
+"successfully"
+msgstr ""
+"Activer pour faire en sorte que l'extension envoie une notification quand un "
+"paramètre à été changé avec succès"
+
+#: template.blp:54
+msgid "Options"
+msgstr "Options"
+
+#: template.blp:55
+msgid "Choose which options to keep in the extension menu."
+msgstr "Choisissez quelles options garder dans le menu de l'extension."
+
+#: common.js:47
+msgid "Extension Settings"
+msgstr "Paramètres de l'extension"
+
+#. All options that the extension can support, regardless of the current device running the extension.
+#: optionsUtils.js:17
+msgid "Conservation Mode"
+msgstr "Conversation de la batterie"
+
+#: optionsUtils.js:17
+msgid "Camera"
+msgstr "Caméra"
+
+#: optionsUtils.js:17
+msgid "Fn Lock"
+msgstr "Verrouillage Fn"
+
+#: optionsUtils.js:17
+msgid "Touchpad"
+msgstr "Pavé tactile"
+
+#: optionsUtils.js:17
+msgid "USB Charging"
+msgstr "Charge USB"
+
+#: optionsUtils.js:44 optionsUtils.js:111
+msgid "Ideapad Controls"
+msgstr "Contrôles IdeaPad"
+
+#: optionsUtils.js:45
+#, javascript-format
+msgid "Can't write %s to %s. See journalctl logs for more details"
+msgstr ""
+"Impossible d'écrire %s dans %s. Référez-vous au journaux système pour plus "
+"de détails"
+
+#: optionsUtils.js:111
+msgid "Enabled"
+msgstr "Activé"
+
+#: optionsUtils.js:111
+msgid "Disabled"
+msgstr "Désactivé"
+
+#: prefs.js:98
+#, javascript-format
+msgid "%s Option"
+msgstr "Option %s"

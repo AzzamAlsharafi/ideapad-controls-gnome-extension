@@ -1,0 +1,131 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-19 18:19+0200\n"
+"PO-Revision-Date: 2023-07-19 22:06+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.3.2\n"
+
+#: template.blp:6
+msgid "Extension Menu"
+msgstr "Extension Menu"
+
+#: template.blp:9
+msgid "Sysfs path of the ideapad_laptop dir"
+msgstr "Sysfs path of the ideapad_laptop dir"
+
+#: template.blp:13
+msgid "Extension menu location"
+msgstr "Extension menu location"
+
+#: template.blp:14
+msgid "Choose where to place the extension menu."
+msgstr "Choose where to place the extension menu."
+
+#: template.blp:19
+msgid "Tray"
+msgstr "Tray"
+
+#: template.blp:20
+msgid "System Menu"
+msgstr "System Menu"
+
+#: template.blp:26
+msgid "Settings button"
+msgstr "Settings button"
+
+#: template.blp:27
+msgid "Enable to show Extension Settings button."
+msgstr "Enable to show Extension Settings button."
+
+#: template.blp:35
+msgid "Use pkexec"
+msgstr "Use pkexec"
+
+#: template.blp:36
+msgid ""
+"Enable to make ideapad_laptop wrap its write commands with pkexec to request "
+"root privileges. Disable only if you have a proper permissions setup (see "
+"README for more details)"
+msgstr ""
+"Enable to make ideapad_laptop wrap its write commands with pkexec to request "
+"root privileges. Disable only if you have a proper permissions setup (see "
+"README for more details)"
+
+#: template.blp:44
+msgid "Send success notifications"
+msgstr "Send success notifications"
+
+#: template.blp:45
+msgid ""
+"Enable to make the extension send notifications when it enables an option "
+"successfully"
+msgstr ""
+"Enable to make the extension send notifications when it enables an option "
+"successfully"
+
+#: template.blp:54
+msgid "Options"
+msgstr "Options"
+
+#: template.blp:55
+msgid "Choose which options to keep in the extension menu."
+msgstr "Choose which options to keep in the extension menu."
+
+#: common.js:47
+msgid "Extension Settings"
+msgstr "Extension Settings"
+
+#. All options that the extension can support, regardless of the current device running the extension.
+#: optionsUtils.js:17
+msgid "Conservation Mode"
+msgstr "Conservation Mode"
+
+#: optionsUtils.js:17
+msgid "Camera"
+msgstr "Camera"
+
+#: optionsUtils.js:17
+msgid "Fn Lock"
+msgstr "Fn Lock"
+
+#: optionsUtils.js:17
+msgid "Touchpad"
+msgstr "Touchpad"
+
+#: optionsUtils.js:17
+msgid "USB Charging"
+msgstr "USB Charging"
+
+#: optionsUtils.js:44 optionsUtils.js:111
+msgid "Ideapad Controls"
+msgstr "Ideapad Controls"
+
+#: optionsUtils.js:45
+#, javascript-format
+msgid "Can't write %s to %s. See journalctl logs for more details"
+msgstr "Can't write %s to %s. See journalctl logs for more details"
+
+#: optionsUtils.js:111
+msgid "Enabled"
+msgstr "Enabled"
+
+#: optionsUtils.js:111
+msgid "Disabled"
+msgstr "Disabled"
+
+#: prefs.js:98
+#, javascript-format
+msgid "%s Option"
+msgstr "%s Option"

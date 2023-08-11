@@ -3,10 +3,16 @@ const Gio = imports.gi.Gio;
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
 const Main = imports.ui.main;
+const Gettext = imports.gettext;
+
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Common = Me.imports.common;
+
+const Domain = Gettext.domain(Me.metadata.uuid);
+const { gettext, ngettext } = Domain;
+const _ = gettext;
 
 const AggregateMenu = Main.panel.statusArea.aggregateMenu;
 

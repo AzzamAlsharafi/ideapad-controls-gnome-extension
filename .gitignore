@@ -1,0 +1,8 @@
+# Extension built ZIP
+*.zip
+
+# Compliled GSChema
+gschemas.compiled
+
+# L10N
+*.mo
