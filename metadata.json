@@ -7,5 +7,6 @@
     "45"
   ],
   "version": 15,
-  "settings-schema": "org.gnome.shell.extensions.ideapad-controls"
+  "settings-schema": "org.gnome.shell.extensions.ideapad-controls",
+  "gettext-domain": "ideapad-controls@azzamalsharafi.gmail.com"
 }
