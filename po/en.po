@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-19 18:19+0200\n"
-"PO-Revision-Date: 2023-07-19 22:06+0200\n"
+"POT-Creation-Date: 2023-11-20 09:46+0100\n"
+"PO-Revision-Date: 2023-11-20 11:20+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.1\n"
 
 #: template.blp:6
 msgid "Extension Menu"
@@ -25,35 +25,35 @@ msgstr "Extension Menu"
 msgid "Sysfs path of the ideapad_laptop dir"
 msgstr "Sysfs path of the ideapad_laptop dir"
 
-#: template.blp:13
+#: template.blp:17
 msgid "Extension menu location"
 msgstr "Extension menu location"
 
-#: template.blp:14
+#: template.blp:18
 msgid "Choose where to place the extension menu."
 msgstr "Choose where to place the extension menu."
 
-#: template.blp:19
+#: template.blp:23
 msgid "Tray"
 msgstr "Tray"
 
-#: template.blp:20
+#: template.blp:24
 msgid "System Menu"
 msgstr "System Menu"
 
-#: template.blp:26
+#: template.blp:30
 msgid "Settings button"
 msgstr "Settings button"
 
-#: template.blp:27
+#: template.blp:31
 msgid "Enable to show Extension Settings button."
 msgstr "Enable to show Extension Settings button."
 
-#: template.blp:35
+#: template.blp:39
 msgid "Use pkexec"
 msgstr "Use pkexec"
 
-#: template.blp:36
+#: template.blp:40
 msgid ""
 "Enable to make ideapad_laptop wrap its write commands with pkexec to request "
 "root privileges. Disable only if you have a proper permissions setup (see "
@@ -63,11 +63,11 @@ msgstr ""
 "root privileges. Disable only if you have a proper permissions setup (see "
 "README for more details)"
 
-#: template.blp:44
+#: template.blp:48
 msgid "Send success notifications"
 msgstr "Send success notifications"
 
-#: template.blp:45
+#: template.blp:49
 msgid ""
 "Enable to make the extension send notifications when it enables an option "
 "successfully"
@@ -75,57 +75,61 @@ msgstr ""
 "Enable to make the extension send notifications when it enables an option "
 "successfully"
 
-#: template.blp:54
+#: template.blp:58
 msgid "Options"
 msgstr "Options"
 
-#: template.blp:55
+#: template.blp:59
 msgid "Choose which options to keep in the extension menu."
 msgstr "Choose which options to keep in the extension menu."
 
-#: common.js:47
+#: extension.js:98
 msgid "Extension Settings"
 msgstr "Extension Settings"
 
-#. All options that the extension can support, regardless of the current device running the extension.
-#: optionsUtils.js:17
-msgid "Conservation Mode"
-msgstr "Conservation Mode"
+#: extension.js:128
+msgid "Enabled %s"
+msgstr "Enabled %s"
 
-#: optionsUtils.js:17
-msgid "Camera"
-msgstr "Camera"
+#: extension.js:128
+msgid "Disabled %s"
+msgstr "Disabled %s"
 
-#: optionsUtils.js:17
-msgid "Fn Lock"
-msgstr "Fn Lock"
-
-#: optionsUtils.js:17
-msgid "Touchpad"
-msgstr "Touchpad"
-
-#: optionsUtils.js:17
-msgid "USB Charging"
-msgstr "USB Charging"
-
-#: optionsUtils.js:44 optionsUtils.js:111
+#: extension.js:134 extension.js:141
 msgid "Ideapad Controls"
 msgstr "Ideapad Controls"
 
-#: optionsUtils.js:45
+#. All options that the extension can support, regardless of the current device running the extension.
+#: optionsUtils.js:5
+msgid "Conservation Mode"
+msgstr "Conservation Mode"
+
+#: optionsUtils.js:5
+msgid "Camera"
+msgstr "Camera"
+
+#: optionsUtils.js:5
+msgid "Fn Lock"
+msgstr "Fn Lock"
+
+#: optionsUtils.js:5
+msgid "Touchpad"
+msgstr "Touchpad"
+
+#: optionsUtils.js:5
+msgid "USB Charging"
+msgstr "USB Charging"
+
+#: prefs.js:103
 #, javascript-format
-msgid "Can't write %s to %s. See journalctl logs for more details"
-msgstr "Can't write %s to %s. See journalctl logs for more details"
+msgid "%s switch"
+msgstr "%s switch"
 
-#: optionsUtils.js:111
-msgid "Enabled"
-msgstr "Enabled"
+#: menus.js:18
+msgid "IdeaPad"
+msgstr "IdeaPad"
 
-#: optionsUtils.js:111
-msgid "Disabled"
-msgstr "Disabled"
+#: menus.js:22
+msgid "IdeaPad Controls"
+msgstr "IdeaPad Controls"
 
-#: prefs.js:98
-#, javascript-format
-msgid "%s Option"
-msgstr "%s Option"

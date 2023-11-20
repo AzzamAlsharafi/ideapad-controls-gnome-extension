@@ -125,7 +125,7 @@ export default class IdeapadControlsExtension extends Extension {
 
     // Write option value to driver file.
     setOptionValue(sysfsPath, optionFile, value) {
-        const notificationBody = `${value === true ? _('Enabled') : _('Disabled')} ${_(getOptionName(optionFile))}`;
+        const notificationBody = `${(value === true ? _('Enabled %s') : _('Disabled %s')).format(_(getOptionName(optionFile)))}`;
         const destinationValue = value ? '1' : '0';
         const destinationFile = sysfsPath + optionFile;
 

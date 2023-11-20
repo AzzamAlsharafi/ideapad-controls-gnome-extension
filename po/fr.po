@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-19 18:19+0200\n"
-"PO-Revision-Date: 2023-07-19 19:15+0200\n"
+"POT-Creation-Date: 2023-11-20 09:46+0100\n"
+"PO-Revision-Date: 2023-11-20 11:22+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.1\n"
 
 #: template.blp:6
 msgid "Extension Menu"
@@ -25,35 +25,35 @@ msgstr "Menu de l'extension"
 msgid "Sysfs path of the ideapad_laptop dir"
 msgstr "Chemin du dossier ideapad_laptop (sysfs)"
 
-#: template.blp:13
+#: template.blp:17
 msgid "Extension menu location"
 msgstr "Emplacement du menu de l'extension"
 
-#: template.blp:14
+#: template.blp:18
 msgid "Choose where to place the extension menu."
 msgstr "Choisir ou placer le menu de l'extension."
 
-#: template.blp:19
+#: template.blp:23
 msgid "Tray"
 msgstr "Barre d'état (Tray)"
 
-#: template.blp:20
+#: template.blp:24
 msgid "System Menu"
 msgstr "Menu système"
 
-#: template.blp:26
+#: template.blp:30
 msgid "Settings button"
 msgstr "Bouton des paramètres"
 
-#: template.blp:27
+#: template.blp:31
 msgid "Enable to show Extension Settings button."
 msgstr "Activer le bouton des paramètres de l'extension."
 
-#: template.blp:35
+#: template.blp:39
 msgid "Use pkexec"
 msgstr "Utiliser pkexec"
 
-#: template.blp:36
+#: template.blp:40
 msgid ""
 "Enable to make ideapad_laptop wrap its write commands with pkexec to request "
 "root privileges. Disable only if you have a proper permissions setup (see "
@@ -63,11 +63,11 @@ msgstr ""
 "les privilèges du super-utilisateur. Désactiver seulement si vous avez "
 "configuré les permissions comme indiqué dans le README"
 
-#: template.blp:44
+#: template.blp:48
 msgid "Send success notifications"
 msgstr "Envoyer des notifications de succès"
 
-#: template.blp:45
+#: template.blp:49
 msgid ""
 "Enable to make the extension send notifications when it enables an option "
 "successfully"
@@ -75,59 +75,63 @@ msgstr ""
 "Activer pour faire en sorte que l'extension envoie une notification quand un "
 "paramètre à été changé avec succès"
 
-#: template.blp:54
+#: template.blp:58
 msgid "Options"
 msgstr "Options"
 
-#: template.blp:55
+#: template.blp:59
 msgid "Choose which options to keep in the extension menu."
 msgstr "Choisissez quelles options garder dans le menu de l'extension."
 
-#: common.js:47
+#: extension.js:98
 msgid "Extension Settings"
 msgstr "Paramètres de l'extension"
 
-#. All options that the extension can support, regardless of the current device running the extension.
-#: optionsUtils.js:17
-msgid "Conservation Mode"
-msgstr "Conversation de la batterie"
+#: extension.js:128
+msgid "Enabled %s"
+msgstr "%s activé(e)"
 
-#: optionsUtils.js:17
-msgid "Camera"
-msgstr "Caméra"
+#: extension.js:128
+msgid "Disabled %s"
+msgstr "%s désactivé(e)"
 
-#: optionsUtils.js:17
-msgid "Fn Lock"
-msgstr "Verrouillage Fn"
-
-#: optionsUtils.js:17
-msgid "Touchpad"
-msgstr "Pavé tactile"
-
-#: optionsUtils.js:17
-msgid "USB Charging"
-msgstr "Charge USB"
-
-#: optionsUtils.js:44 optionsUtils.js:111
+#: extension.js:134 extension.js:141
 msgid "Ideapad Controls"
 msgstr "Contrôles IdeaPad"
 
-#: optionsUtils.js:45
+#. All options that the extension can support, regardless of the current device running the extension.
+#: optionsUtils.js:5
+msgid "Conservation Mode"
+msgstr "Conversation de la batterie"
+
+#: optionsUtils.js:5
+msgid "Camera"
+msgstr "Caméra"
+
+#: optionsUtils.js:5
+msgid "Fn Lock"
+msgstr "Verrouillage Fn"
+
+#: optionsUtils.js:5
+msgid "Touchpad"
+msgstr "Pavé tactile"
+
+#: optionsUtils.js:5
+msgid "USB Charging"
+msgstr "Charge USB"
+
+#: prefs.js:103
 #, javascript-format
-msgid "Can't write %s to %s. See journalctl logs for more details"
-msgstr ""
-"Impossible d'écrire %s dans %s. Référez-vous au journaux système pour plus "
-"de détails"
+msgid "%s switch"
+msgstr "Configuration de: %s"
 
-#: optionsUtils.js:111
-msgid "Enabled"
-msgstr "Activé"
+#: menus.js:18
+msgid "IdeaPad"
+msgstr "IdeaPad"
 
-#: optionsUtils.js:111
-msgid "Disabled"
-msgstr "Désactivé"
+#: menus.js:22
+#, fuzzy
+#| msgid "Ideapad Controls"
+msgid "IdeaPad Controls"
+msgstr "Contrôles IdeaPad"
 
-#: prefs.js:98
-#, javascript-format
-msgid "%s Option"
-msgstr "Option %s"

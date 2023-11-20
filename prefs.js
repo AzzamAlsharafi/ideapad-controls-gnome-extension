@@ -100,7 +100,7 @@ export default class IdeapadControlsPreferences extends ExtensionPreferences {
             // Convert option title to schema key, i.e. "camera_power" becomes "camera-power-option"
             const optionKey = `${options[i].toLowerCase().replace('_', '-')}-option`;
 
-            const optionRow = new Adw.ActionRow({title: _('%s Option').format(translatedOptions[i])});
+            const optionRow = new Adw.ActionRow({title: _('%s switch').format(translatedOptions[i])});
             optionsGroup.add(optionRow);
 
             const optionSwitch = new Gtk.Switch({

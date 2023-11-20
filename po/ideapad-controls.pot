@@ -1,5 +1,5 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Translations for the IdeaPad Controls GNOME extension
+# Copyright (C) 2023
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-19 18:19+0200\n"
+"POT-Creation-Date: 2023-11-20 09:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,102 +25,105 @@ msgstr ""
 msgid "Sysfs path of the ideapad_laptop dir"
 msgstr ""
 
-#: template.blp:13
+#: template.blp:17
 msgid "Extension menu location"
 msgstr ""
 
-#: template.blp:14
+#: template.blp:18
 msgid "Choose where to place the extension menu."
 msgstr ""
 
-#: template.blp:19
+#: template.blp:23
 msgid "Tray"
 msgstr ""
 
-#: template.blp:20
+#: template.blp:24
 msgid "System Menu"
 msgstr ""
 
-#: template.blp:26
+#: template.blp:30
 msgid "Settings button"
 msgstr ""
 
-#: template.blp:27
+#: template.blp:31
 msgid "Enable to show Extension Settings button."
 msgstr ""
 
-#: template.blp:35
+#: template.blp:39
 msgid "Use pkexec"
 msgstr ""
 
-#: template.blp:36
+#: template.blp:40
 msgid ""
 "Enable to make ideapad_laptop wrap its write commands with pkexec to request "
 "root privileges. Disable only if you have a proper permissions setup (see "
 "README for more details)"
 msgstr ""
 
-#: template.blp:44
+#: template.blp:48
 msgid "Send success notifications"
 msgstr ""
 
-#: template.blp:45
+#: template.blp:49
 msgid ""
 "Enable to make the extension send notifications when it enables an option "
 "successfully"
 msgstr ""
 
-#: template.blp:54
+#: template.blp:58
 msgid "Options"
 msgstr ""
 
-#: template.blp:55
+#: template.blp:59
 msgid "Choose which options to keep in the extension menu."
 msgstr ""
 
-#: common.js:47
+#: extension.js:98
 msgid "Extension Settings"
 msgstr ""
 
-#. All options that the extension can support, regardless of the current device running the extension.
-#: optionsUtils.js:17
-msgid "Conservation Mode"
+#: extension.js:128
+msgid "Enabled %s"
 msgstr ""
 
-#: optionsUtils.js:17
-msgid "Camera"
+#: extension.js:128
+msgid "Disabled %s"
 msgstr ""
 
-#: optionsUtils.js:17
-msgid "Fn Lock"
-msgstr ""
-
-#: optionsUtils.js:17
-msgid "Touchpad"
-msgstr ""
-
-#: optionsUtils.js:17
-msgid "USB Charging"
-msgstr ""
-
-#: optionsUtils.js:44 optionsUtils.js:111
+#: extension.js:134 extension.js:141
 msgid "Ideapad Controls"
 msgstr ""
 
-#: optionsUtils.js:45
+#. All options that the extension can support, regardless of the current device running the extension.
+#: optionsUtils.js:5
+msgid "Conservation Mode"
+msgstr ""
+
+#: optionsUtils.js:5
+msgid "Camera"
+msgstr ""
+
+#: optionsUtils.js:5
+msgid "Fn Lock"
+msgstr ""
+
+#: optionsUtils.js:5
+msgid "Touchpad"
+msgstr ""
+
+#: optionsUtils.js:5
+msgid "USB Charging"
+msgstr ""
+
+#: prefs.js:103
 #, javascript-format
-msgid "Can't write %s to %s. See journalctl logs for more details"
+msgid "%s switch"
 msgstr ""
 
-#: optionsUtils.js:111
-msgid "Enabled"
+#: menus.js:18
+msgid "IdeaPad"
 msgstr ""
 
-#: optionsUtils.js:111
-msgid "Disabled"
-msgstr ""
-
-#: prefs.js:98
-#, javascript-format
-msgid "%s Option"
+#: menus.js:22
+msgid "IdeaPad Controls"
 msgstr ""

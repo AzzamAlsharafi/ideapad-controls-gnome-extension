@@ -20,7 +20,7 @@ $(EXTENSION_ZIP): template.ui
 translations:
 	@xgettext \
 		--files-from=po/POTFILES \
-		--output=po/ideapat-controls.pot \
+		--output=po/ideapad-controls.pot \
 		--from-code=UTF-8 \
 		--add-comments \
 		--keyword=_ \
