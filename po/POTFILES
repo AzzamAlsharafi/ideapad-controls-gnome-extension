@@ -1,7 +1,5 @@
 template.blp
-aggregateMenu.js
-common.js
 extension.js
 optionsUtils.js
 prefs.js
-quickSettingsMenu.js
+menus.js

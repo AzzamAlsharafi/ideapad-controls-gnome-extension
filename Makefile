@@ -9,11 +9,9 @@ template.ui: subprojects
 
 $(EXTENSION_ZIP): template.ui
 	@gnome-extensions pack ./ \
-    		--extra-source=template.ui \
+    	--extra-source=template.ui \
 		--extra-source=optionsUtils.js \
-		--extra-source=aggregateMenu.js \
-		--extra-source=quickSettingsMenu.js \
-		--extra-source=common.js \
+		--extra-source=menus.js \
 		--extra-source=icons/ \
 		--extra-source=LICENSE.md \
 		--podir=po \
@@ -22,7 +20,7 @@ $(EXTENSION_ZIP): template.ui
 translations:
 	@xgettext \
 		--files-from=po/POTFILES \
-		--output=po/ideapat-controls.pot \
+		--output=po/ideapad-controls.pot \
 		--from-code=UTF-8 \
 		--add-comments \
 		--keyword=_ \
